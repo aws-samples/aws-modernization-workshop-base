@@ -14,18 +14,3 @@ Please read this documentation in its entirety before starting to build a worksh
 
 To get started, 
 either click on the **>** button to the right or click on **Plan** in the left-hand navigation.
-
-<table>
-<tr>
-    <td>
-        <img src="/images/docs/Deck_Blueprints.png" alt="plan" width="200"/> <h4 style="text-align:center;">Plan</h4>
-    </td>
-    <td>
-        <img src="/images/docs/Deck_Toolbox.png" alt="plan" width="200"/> <h4 style="text-align:center;">Build</h4>
-    </td>
-    <td>
-        <img src="/images/docs/Deck_Rocket2.png" alt="plan" width="200"/> <h4 style="text-align:center;">Launch</h4>
-    </td>
-
-</tr>
-</table>
