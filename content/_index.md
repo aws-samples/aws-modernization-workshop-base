@@ -1,11 +1,23 @@
 ---
-title: "Main Page"
+title: "AWS Modernization Basic Setup"
 chapter: true
 weight: 1
 ---
 
-# Main Page
+# AWS Modernization Basic Setup
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut faucibus pulvinar elementum integer enim neque volutpat. Aenean sed adipiscing diam donec adipiscing tristique. Adipiscing elit ut aliquam purus. At tempor commodo ullamcorper a. Interdum consectetur libero id faucibus. Quam id leo in vitae. Elementum curabitur vitae nunc sed velit dignissim. Dui id ornare arcu odio ut sem nulla. Donec pretium vulputate sapien nec sagittis aliquam. In nisl nisi scelerisque eu ultrices vitae auctor.
+### Welcome
 
-Convallis tellus id interdum velit laoreet id donec ultrices. Nisl pretium fusce id velit ut. Adipiscing commodo elit at imperdiet. Scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique. Non diam phasellus vestibulum lorem sed risus ultricies tristique nulla. Ultricies lacus sed turpis tincidunt id. Feugiat scelerisque varius morbi enim nunc faucibus a. Egestas sed sed risus pretium quam vulputate dignissim suspendisse. Nisi vitae suscipit tellus mauris a diam maecenas sed. Nisi quis eleifend quam adipiscing vitae proin sagittis. Gravida dictum fusce ut placerat orci nulla pellentesque dignissim. Tincidunt lobortis feugiat vivamus at augue. Lectus magna fringilla urna porttitor rhoncus dolor purus non enim. Amet cursus sit amet dictum sit amet justo donec. Ultricies mi quis hendrerit dolor magna. Orci eu lobortis elementum nibh tellus molestie nunc. Amet porttitor eget dolor morbi non arcu risus.
+<p style='text-align: left;'>
+     
+</p>
+
+### Objectives
+- Learn how to create a new AWS account
+- Deploy Cloud9 as an IDE for completing workshop exercises
+
+{{% notice warning %}}
+<p style='text-align: left;'>
+The examples and sample code provided in this workshop are intended to be consumed as instructional content. These will help you understand how various AWS services can be architected to build a solution while demonstrating best practices along the way. These examples are not intended for use in production environments.
+</p>
+{{% /notice %}}
