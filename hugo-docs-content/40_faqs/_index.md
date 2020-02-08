@@ -6,10 +6,6 @@ weight = 40
 
 ## FAQ's
 
-<img src="/images/docs/Deck_BookOpen1.png" alt="plan" width="200"/> 
-
-
-
 <h4 align="left">
 Why do you use Cloud9?
 </h4>
