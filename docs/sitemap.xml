@@ -3,56 +3,56 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/</loc>
+    <loc>https://aws-samples.github.io/aws-modernization-workshop-sample/</loc>
   </url>
   
   <url>
-    <loc>/20_build/1_setup/</loc>
+    <loc>https://aws-samples.github.io/aws-modernization-workshop-sample/20_build/1_setup/</loc>
   </url>
   
   <url>
-    <loc>/10_plan/1_story/</loc>
+    <loc>https://aws-samples.github.io/aws-modernization-workshop-sample/10_plan/1_story/</loc>
   </url>
   
   <url>
-    <loc>/20_build/10_editing/</loc>
+    <loc>https://aws-samples.github.io/aws-modernization-workshop-sample/20_build/10_editing/</loc>
   </url>
   
   <url>
-    <loc>/10_plan/</loc>
+    <loc>https://aws-samples.github.io/aws-modernization-workshop-sample/10_plan/</loc>
   </url>
   
   <url>
-    <loc>/10_plan/2_plan/</loc>
+    <loc>https://aws-samples.github.io/aws-modernization-workshop-sample/10_plan/2_plan/</loc>
   </url>
   
   <url>
-    <loc>/20_build/</loc>
+    <loc>https://aws-samples.github.io/aws-modernization-workshop-sample/20_build/</loc>
   </url>
   
   <url>
-    <loc>/20_build/20_testing/</loc>
+    <loc>https://aws-samples.github.io/aws-modernization-workshop-sample/20_build/20_testing/</loc>
   </url>
   
   <url>
-    <loc>/30_launch/</loc>
+    <loc>https://aws-samples.github.io/aws-modernization-workshop-sample/30_launch/</loc>
   </url>
   
   <url>
-    <loc>/20_build/30_publish/</loc>
+    <loc>https://aws-samples.github.io/aws-modernization-workshop-sample/20_build/30_publish/</loc>
   </url>
   
   <url>
-    <loc>/40_faqs/</loc>
+    <loc>https://aws-samples.github.io/aws-modernization-workshop-sample/40_faqs/</loc>
   </url>
   
   <url>
-    <loc>/categories/</loc>
+    <loc>https://aws-samples.github.io/aws-modernization-workshop-sample/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/</loc>
+    <loc>https://aws-samples.github.io/aws-modernization-workshop-sample/tags/</loc>
     <priority>0</priority>
   </url>
   

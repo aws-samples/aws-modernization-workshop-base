@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Plan on AWS Modernization Workshop Sample</title>
-    <link>/10_plan/</link>
-    <description>Recent content in Plan on AWS Modernization Workshop Sample</description>
+    <title>Plan on AWS Modernization Workshop Sample Docs</title>
+    <link>https://aws-samples.github.io/aws-modernization-workshop-sample/10_plan/</link>
+    <description>Recent content in Plan on AWS Modernization Workshop Sample Docs</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     
-	<atom:link href="/10_plan/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://aws-samples.github.io/aws-modernization-workshop-sample/10_plan/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>What&#39;s the story?</title>
-      <link>/10_plan/1_story/</link>
+      <link>https://aws-samples.github.io/aws-modernization-workshop-sample/10_plan/1_story/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/10_plan/1_story/</guid>
+      <guid>https://aws-samples.github.io/aws-modernization-workshop-sample/10_plan/1_story/</guid>
       <description>Think about what you want to accomplish and how you want to educate users about your product. What is the use case or problem that your product solves for the end user and develop a story around it. Two things to have in the back of your mind while you think about this: 1. Customers don&amp;rsquo;t buy products they buy solutions to their problems and 2. Make learning fun, have a nice story that can entertain them while educating them at the same time.</description>
     </item>
     
     <item>
       <title>Plan the Workshop</title>
-      <link>/10_plan/2_plan/</link>
+      <link>https://aws-samples.github.io/aws-modernization-workshop-sample/10_plan/2_plan/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/10_plan/2_plan/</guid>
+      <guid>https://aws-samples.github.io/aws-modernization-workshop-sample/10_plan/2_plan/</guid>
       <description>High Level Workshop Planning  Determine the message and what you want the customer to learn. Remember to wrap your story around this so customers find it fun. Example: I want potential customers to learn how easy it is to instrument our testing product into their build pipeline.
  Think from a high level what components or systems will be needed. These are the building blocks that will save you time when you start to build the workshop.</description>
     </item>
