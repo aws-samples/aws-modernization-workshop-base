@@ -16,7 +16,7 @@ In order for you to succeed in this workshop, you will need to run through a few
 
 ### Deploy & Launch AWS Cloud9
 
-   [Click here to deploy using CloudFormation template](https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/new?stackName=ModernizationWorkshop&templateURL=https://modernization-workshop-west-2.s3-us-west-2.amazonaws.com/devops/cfn/modernization-workshop.yaml)
+   [Click here to deploy using CloudFormation template](https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/new?stackName=ModernizationWorkshop&templateURL=https://modernization-workshop-bucket.s3-us-west-2.amazonaws.com/cfn/nested-vpc-cloud9-stack.yaml)
 
    - Create stack, click **Next**
    - Specify stack details, click **Next**

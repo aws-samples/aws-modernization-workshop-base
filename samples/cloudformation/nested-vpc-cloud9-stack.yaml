@@ -1,0 +1,18 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: This AWS CloudFormation Template configures a VPC and cloud9 instance. 
+
+Resources:
+
+  ModernizationVPC:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://modernization-workshop-bucket.s3-us-west-2.amazonaws.com/cfn/modernization-vpc.yaml
+    
+  ModernizationCloud9:
+    DependsOn: ModernizationVPC
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://modernization-workshop-bucket.s3-us-west-2.amazonaws.com/cfn/modernization-cloud9.yaml
+
+Outputs: {}

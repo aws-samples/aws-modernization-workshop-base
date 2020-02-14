@@ -1,0 +1,21 @@
+---
+AWSTemplateFormatVersion: "2010-09-09"
+Description: This template will launch a Cloud9IDE for .Net Modernization Workshop.
+Parameters:
+  VPCstack:
+    Type: String
+    Description: VPC stack to import values from
+    Default: ModernizationVPC
+Resources:
+  WorkshopIDE:
+    Type: "AWS::Cloud9::EnvironmentEC2"
+    Properties:
+      Description: "Cloud9 Browser Based IDE for executing the modernization AWS Workshop"
+      AutomaticStopTimeMinutes: 60
+      InstanceType: t2.small
+      SubnetId: 
+        Fn::ImportValue: !Sub "${VPCstack}:PublicSubnet1"
+Outputs:
+  Cloud9IDE:
+    Description: "The IDE Login URL"
+    Value: !Sub "https://${AWS::Region}.console.aws.amazon.com/cloud9/ide/${WorkshopIDE}"
