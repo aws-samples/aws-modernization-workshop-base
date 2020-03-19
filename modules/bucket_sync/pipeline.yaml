@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: This template will launch the Modernization Workshop CI/CD Pipeline.
+Description: This template will launch a code pipeline to copy templates from a directory to an s3 bucket.
 
 # It should only be necessary to update the parameters
 # run this stack as below but sub for {WORKSHOP NAME} with the workshop/company name
@@ -8,19 +8,19 @@ Parameters:
   ProjectName:
     Type: String
     Description: Project Name
-    Default: xxxxxxx
-  WebsiteBucket:
+    Default: cfn-to-s3
+  Bucket:
     Type: String
-    Description: Website S3 bucket name
-    Default: xxxxxxx.modernize.awsworkshop.io  
+    Description: S3 bucket for public assets. ex. Cloudformation templates
+    Default: modernization-workshop-bucket  
   GitHubRepo:
     Type: String
     Description: repo name
-    Default: aws-modernization-xxxxxxx
+    Default: aws-modernization-workshop-base
   FullRepoURL:
     Type: String
     Description: The full url to the repo
-    Default: https://github.com/aws-samples/aws-modernization-xxxxxxxx.git  
+    Default: https://github.com/aws-samples/aws-modernization-workshop-base.git  
   GitHubOwner:
     Type: String
     Description: GitHub owner name
@@ -55,7 +55,7 @@ Resources:
                   - s3:GetObject
                   - s3:PutObject
                   - s3:GetObjectVersion
-              - Resource: !Sub arn:aws:s3:::${WebsiteBucket}/*
+              - Resource: !Sub arn:aws:s3:::${Bucket}/*
                 Effect: Allow
                 Action:
                   - s3:GetObject
@@ -115,10 +115,10 @@ Resources:
             Value: !Ref AWS::Region
           - Name: FULL_REPO_URL
             Value: !Ref FullRepoURL
-          - Name: WEB_SITE_BUCKET  
-            Value: !Ref WebsiteBucket  
+          - Name: BUCKET  
+            Value: !Ref Bucket  
         PrivilegedMode: true
-      Name: !Join ['', [!Ref 'ProjectName', '-Workshop-website']]
+      Name: !Join ['', [!Ref 'ProjectName', '-pipeline']]
       ServiceRole: !Ref CodeBuildServiceRole
                      
   Pipeline:
