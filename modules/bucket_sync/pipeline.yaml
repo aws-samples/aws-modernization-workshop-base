@@ -55,15 +55,13 @@ Resources:
                   - s3:GetObject
                   - s3:PutObject
                   - s3:GetObjectVersion
-              - Resource: !Join
-                - ''
-                - - !Sub arn:aws:s3:::${Bucket}/*
-                  - !Sub arn:aws:s3:::${Bucket}
+              - Resource: !Sub arn:aws:s3:::${Bucket}/*
                 Effect: Allow
                 Action:
                   - s3:GetObject
                   - s3:PutObject
                   - s3:GetObjectVersion
+                  - s3:PutObjectAcl
                   - s3:List*
 
   CodePipelineServiceRole:
