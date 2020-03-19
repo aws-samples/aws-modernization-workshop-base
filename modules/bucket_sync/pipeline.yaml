@@ -55,16 +55,16 @@ Resources:
                   - s3:GetObject
                   - s3:PutObject
                   - s3:GetObjectVersion
-              - Resource: !Sub arn:aws:s3:::${Bucket}/*
+              - Resource: !Join
+                - ''
+                - - !Sub arn:aws:s3:::${Bucket}/*
+                  - !Sub arn:aws:s3:::${Bucket}
                 Effect: Allow
                 Action:
                   - s3:GetObject
                   - s3:PutObject
                   - s3:GetObjectVersion
-                  - s3:ListObjectsV2
-                  - s3:ListBucket
-                  - s3:GetBucketLocation
-                  - s3:ListObjectsV2
+                  - s3:List*
 
   CodePipelineServiceRole:
     Type: AWS::IAM::Role
