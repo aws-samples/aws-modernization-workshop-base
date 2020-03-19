@@ -64,6 +64,7 @@ Resources:
                   - s3:ListObjectsV2
                   - s3:ListBucket
                   - s3:GetBucketLocation
+                  - s3:ListObjectsV2
 
   CodePipelineServiceRole:
     Type: AWS::IAM::Role
