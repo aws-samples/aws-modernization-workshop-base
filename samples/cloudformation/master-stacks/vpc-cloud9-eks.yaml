@@ -27,10 +27,10 @@ Resources:
         RemoteAccessCIDR: 0.0.0.0/0
         NodeInstanceType: m5.xlarge
         VPCID: !GetAtt ModernizationVPC.Outputs.VPC
-        PublicSubnet1ID: ModernizationVPC.Outputs.PublicSubnet1
-        PublicSubnet2ID: ModernizationVPC.Outputs.PublicSubnet2
-        PrivateSubnet1ID: ModernizationVPC.Outputs.PrivateSubnet1
-        PrivateSubnet2ID: ModernizationVPC.Outputs.PrivateSubnet2
+        PublicSubnet1ID: !GetAtt ModernizationVPC.Outputs.PublicSubnet1
+        PublicSubnet2ID: !GetAtt ModernizationVPC.Outputs.PublicSubnet2
+        PrivateSubnet1ID: !GetAtt ModernizationVPC.Outputs.PrivateSubnet1
+        PrivateSubnet2ID: !GetAtt ModernizationVPC.Outputs.PrivateSubnet2
         KeyPairName: eksworkshop 
         ProvisionBastionHost: Disabled
 
