@@ -14,6 +14,7 @@ Resources:
       AutomaticStopTimeMinutes: 60
       InstanceType: t2.small
       SubnetId: !Ref PublicSubnet1
+      OwnerArn: !Sub 'arn:aws:iam::${AWS::AccountId}:*'
         
 Outputs:
   Cloud9IDE:
