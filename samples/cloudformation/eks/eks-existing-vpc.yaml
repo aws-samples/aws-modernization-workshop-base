@@ -140,6 +140,7 @@ Parameters:
     Default: ''
   VPCID:
     Type: String
+    Default: ""
   PublicSubnet1ID:
     Type: String
     Default: ""
@@ -151,6 +152,7 @@ Parameters:
     Default: ""
   PrivateSubnet1ID:
     Type: String
+    Default: ""
   PrivateSubnet2ID:
     Type: String
     Default: ""
