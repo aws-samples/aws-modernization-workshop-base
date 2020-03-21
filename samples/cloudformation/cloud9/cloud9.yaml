@@ -14,8 +14,8 @@ Resources:
       Description: "Cloud9 Browser Based IDE for executing the modernization AWS Workshop"
       AutomaticStopTimeMinutes: 60
       InstanceType: t2.small
-      SubnetId: 
-        Fn::ImportValue: "wks:PublicSubnet1"
+      SubnetId: !Sub ${PublicSubnet1}
+        
         
 Outputs:
   Cloud9IDE:
