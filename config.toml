@@ -6,6 +6,7 @@ title = "AWS Modernization Workshop Base"
 theme = "hugo-theme-learn"
 metaDataFormat = "yaml"
 defaultContentLanguageInSubdir= true
+enableEmoji = true
 
 [params]
   # Prefix URL to edit current page. Will display an "Edit this page" button on top right hand corner of every page. 

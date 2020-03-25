@@ -148,3 +148,8 @@ div.notices p:first-child:before {
     font-weight: 900; /* Fix version 5.0.9 */
     left: 10px;
 }
+
+#chapter p {
+    text-align: left;
+}
+
