@@ -246,7 +246,7 @@ Parameters:
     Type: String
   ManagedNodeGroup:
     AllowedValues: [ "yes", "no" ]
-    Default: "no"
+    Default: "yes"
     Description: Choose if you want to use a managed node group. If you select "yes", you must select Kubernetes Version 1.14 or higher.
     Type: String
   ManagedNodeGroupAMIType:
@@ -404,9 +404,5 @@ Outputs:
     Value: !GetAtt EKSStack.Outputs.KubeGetLambdaArn
   EKSClusterName:
     Value: !GetAtt EKSStack.Outputs.EKSClusterName
-  BastionIP:
-    Value: !GetAtt EKSStack.Outputs.BastionIP
-  BastionSecurityGroup:
-    Value: !GetAtt EKSStack.Outputs.BastionSecurityGroup
   NodeGroupSecurityGroup:
     Value: !GetAtt EKSStack.Outputs.NodeGroupSecurityGroup
