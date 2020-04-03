@@ -15,6 +15,40 @@ Resources:
       AutomaticStopTimeMinutes: 60
       InstanceType: t2.small
       SubnetId: !Sub ${PublicSubnet1}
+
+  Cloud9InstanceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Path: /
+      RoleName: "modernization-admin"
+  
+  Cloud9InstancePolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: Cloud9AdminAccessPolicy
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Action: '*'
+            Resource: '*'
+      Roles:
+        - !Ref Cloud9InstanceRole
+  
+  Cloud9InstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      InstanceProfileName: "modernization-admin"
+      Path: /
+      Roles:
+        - !Ref Cloud9InstanceRole
         
         
 Outputs:
