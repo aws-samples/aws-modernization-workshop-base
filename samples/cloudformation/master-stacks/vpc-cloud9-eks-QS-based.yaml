@@ -11,6 +11,11 @@ Resources:
       Parameters:
         EnvironmentName: Workshop
 
+  ModernizationKeyPair:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://modernization-workshop-bucket.s3-us-west-2.amazonaws.com/cfn/keypair/cfn-keypair-provider.yaml  
+
   ModernizationCloud9:
     DependsOn: ModernizationVPC
     Type: AWS::CloudFormation::Stack
@@ -31,6 +36,6 @@ Resources:
         PublicSubnet2ID: !GetAtt ModernizationVPC.Outputs.PublicSubnet2
         PrivateSubnet1ID: !GetAtt ModernizationVPC.Outputs.PrivateSubnet1
         PrivateSubnet2ID: !GetAtt ModernizationVPC.Outputs.PrivateSubnet2
-        KeyPairName: eksworkshop 
+        KeyPairName: WorkshopKeyPair 
 
 Outputs: {}
