@@ -95,6 +95,13 @@ Resources:
       Role: !GetAtt 'LambdaRole.Arn'
       Runtime: python3.7
 
+  PrivateKey:
+    Type: Custom::RSAKey
+    Properties:
+      Name: /demo/private-key
+      KeyAlias: alias/aws/ssm
+      ServiceToken: !Sub 'arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:binxio-cfn-secret-provider'
+
   KeyPair:
     Type: Custom::KeyPair
     DependsOn:
@@ -103,3 +110,8 @@ Resources:
       Name: WorkshopKeyPair
       PublicKeyMaterial: !GetAtt 'PrivateKey.PublicKey'
       ServiceToken: !Sub 'arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:binxio-cfn-secret-provider'    
+
+Outputs:
+  KeyPair:
+    Description: A reference to the KeyPair name
+    Value: WorkshopKeyPair

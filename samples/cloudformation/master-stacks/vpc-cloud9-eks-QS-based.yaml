@@ -36,6 +36,6 @@ Resources:
         PublicSubnet2ID: !GetAtt ModernizationVPC.Outputs.PublicSubnet2
         PrivateSubnet1ID: !GetAtt ModernizationVPC.Outputs.PrivateSubnet1
         PrivateSubnet2ID: !GetAtt ModernizationVPC.Outputs.PrivateSubnet2
-        KeyPairName: WorkshopKeyPair 
+        KeyPairName: !GetAtt ModernizationKeyPair.Outputs.KeyPair
 
 Outputs: {}
