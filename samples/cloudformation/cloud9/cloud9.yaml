@@ -55,3 +55,7 @@ Outputs:
   Cloud9IDE:
     Description: "The IDE Login URL"
     Value: !Sub "https://${AWS::Region}.console.aws.amazon.com/cloud9/ide/${WorkshopIDE}"
+
+  Cloud9RoleArn:
+    Description: "Cloud9 Role Arn"  
+    Value: !GetAtt  Cloud9InstanceRole.Arn

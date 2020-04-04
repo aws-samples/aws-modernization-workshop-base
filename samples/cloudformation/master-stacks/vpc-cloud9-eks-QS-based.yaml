@@ -32,5 +32,6 @@ Resources:
         PrivateSubnet1ID: !GetAtt ModernizationVPC.Outputs.PrivateSubnet1
         PrivateSubnet2ID: !GetAtt ModernizationVPC.Outputs.PrivateSubnet2
         KeyPairName: eksworkshop
+        AdditionalEKSAdminArns: !GetAtt ModernizationCloud9.Outputs.Cloud9RoleArn
 
 Outputs: {}
