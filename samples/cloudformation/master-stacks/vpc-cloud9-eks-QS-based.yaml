@@ -22,7 +22,7 @@ Resources:
   ModernizationEKS:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://modernization-workshop-bucket.s3-us-west-2.amazonaws.com/cfn/eks/eks-existing-vpc-QS-based.yaml
+      TemplateURL: https://aws-quickstart.s3.us-east-1.amazonaws.com/quickstart-amazon-eks/templates/amazon-eks-master-existing-vpc.template.yaml
       Parameters:
         RemoteAccessCIDR: 0.0.0.0/0
         NodeInstanceType: m5.xlarge
@@ -33,5 +33,6 @@ Resources:
         PrivateSubnet2ID: !GetAtt ModernizationVPC.Outputs.PrivateSubnet2
         KeyPairName: eksworkshop
         AdditionalEKSAdminArns: !GetAtt ModernizationCloud9.Outputs.Cloud9RoleArn
+        ProvisionBastionHost: Disabled
 
 Outputs: {}
