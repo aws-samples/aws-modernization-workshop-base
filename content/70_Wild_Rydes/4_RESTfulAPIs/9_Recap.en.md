@@ -10,14 +10,11 @@ weight = 99
 
 :wrench: In this module you've used API Gateway to provide a REST API to the Lambda function created in the previous module. From there you've updated the website to use the API endpoint so that you can request rides and the information about the ride is saved in the DynamoDB table created earlier.
 
-:star: Congratulations, you have completed the Wild Rydes Web Application Workshop! Check out our [other workshops][workshops] covering additional serverless use cases.
-
 ### Next
 
-:white_check_mark: See this workshop's [cleanup guide][cleanup] for instructions on how to delete the resources you've created.
+:white_check_mark: You can move on to the next module, [Observability][observability].
 
+[observability]: ../5_observability.html
 [api-gw]: https://aws.amazon.com/api-gateway/
-[cleanup]: ../9_cleanup.html
 [cognito]: https://aws.amazon.com/cognito/
 [lambda]: https://aws.amazon.com/lambda/
-[workshops]: https://github.com/aws-samples/aws-serverless-workshops
