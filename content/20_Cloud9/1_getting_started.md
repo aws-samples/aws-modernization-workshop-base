@@ -16,13 +16,13 @@ Your Cloud9 environment will have access to the same AWS resources as the user w
 
 1. From the AWS Management Console, Select **Services** then select **Cloud9** under Developer Tools. 
 
-![Step 4](/images/wildrydes/c9-step4.png)
+![Step 4](/images/getting_started/c9-step4.png)
 
 2. Select **Create environment**.
 
 3. Enter `wildrydes-webapp-development` into **Name** and optionally provide a **Description**.
 
-![Step 5](/images/wildrydes/c9-step5.png)
+![Step 5](/images/getting_started/c9-step5.png)
 
 4. Select **Next step**.
 
@@ -30,7 +30,7 @@ Your Cloud9 environment will have access to the same AWS resources as the user w
 - Set the *Instance type* to **t2.micro (1 GiB RAM + 1 vCPU)**.
 - Leave all other defaults unchanged.
 
-![Step 6](/images/wildrydes/c9-step6-b.png)
+![Step 6](/images/getting_started/c9-step6-b.png)
 
 6. Select **Next step**.
 
@@ -40,7 +40,7 @@ Your Cloud9 environment will have access to the same AWS resources as the user w
 
 1. Once ready, your IDE will open to a welcome screen. Below that, you should see a terminal prompt. Close the Welcome tab and drag up the terminal window to give yourself more space to work in. 
 
-![Step 7](/images/wildrydes/c9-step7.png)
+![Step 7](/images/getting_started/c9-step7.png)
 
 - You can run AWS CLI commands in here just like you would on your local computer. Remember for this workshop to run all commands within the Cloud9 terminal window rather than on your local computer.
 - Keep your AWS Cloud9 IDE opened in a browser tab throughout this workshop.
@@ -74,5 +74,5 @@ aws sts get-caller-identity
 
 ## Next steps
 
-:white_check_mark: Now you have Cloud9 launched and initalized, wait for the workshop instructor to continue.
+:white_check_mark: Now you have Cloud9 launched and initialized, wait for the workshop instructor to continue.
 
