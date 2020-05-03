@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 
-Description: This AWS CloudFormation Template configures a VPC and cloud9 instance. 
+Description: This AWS CloudFormation Template configures a VPC and EKS cluster 
 
 Resources:
 
@@ -29,7 +29,7 @@ Resources:
         PrivateSubnet1ID: !GetAtt ModernizationVPC.Outputs.PrivateSubnet1
         PrivateSubnet2ID: !GetAtt ModernizationVPC.Outputs.PrivateSubnet2
         KeyPairName: eksworkshop
-        AdditionalEKSAdminArns: !GetAtt ModernizationCloud9.Outputs.Cloud9RoleArn
+        AdditionalEKSAdminArns: !ImportValue Cloud9RoleArn
         ProvisionBastionHost: Disabled
 
 Outputs: {}
