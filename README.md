@@ -1,7 +1,7 @@
 
 
-# AWSWorkshop.io base workshop prereqs 
+# AWSWorkshop.io base workshop 
 
-This is a base workshop that other workshops can reference for new account creation, VPC, and Cloud9 environment setup.
+This is a base workshop.  Clone and start from this repo to create your workshop.
 
 
