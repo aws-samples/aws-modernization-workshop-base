@@ -1,20 +1,19 @@
 ---
-title: "AWS Modernization Basic Setup"
+title: "AWS Modernization Workshop"
 chapter: true
 weight: 1
 ---
 
-# AWS Modernization Basic Setup
+# AWS Modernization Workshop
 
 ### Welcome
 
-<p style='text-align: left;'>
-     
-</p>
+In this workshop you will learn why DevOps is a pattern for modernization and how to use patterns to release features and functionality at a faster pace.
 
-### Objectives
-- Learn how to create a new AWS account
-- Deploy Cloud9 as an IDE for completing workshop exercises
+### Learning Objectives
+- Deploy Cloud9 as an IDE for completing workshop exercises.
+- How DevOps patterns help to release features and functionality faster.
+- Best practices for implementing 2 pizza team pipelines.
 
 {{% notice warning %}}
 <p style='text-align: left;'>
