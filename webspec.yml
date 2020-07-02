@@ -20,7 +20,7 @@ phases:
       - git submodule update --recursive
       - gem install asciidoctor
       - echo Install Hugo
-      - curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep "browser_download_url.*hugo_[^extended].*_Linux-64bit\.tar\.gz" | cut -d ":" -f 2,3 | tr -d \" | wget -qi -  
+      - wget https://github.com/gohugoio/hugo/releases/download/v0.71.0/hugo_extended_0.71.0_Linux-64bit.tar.gz -O hugo_extended_0.71.0_Linux-64bit.tar.gz
       - HUGO_TAR="$(find . -name "*Linux-64bit.tar.gz")"
       - tar -xzf $HUGO_TAR
       - chmod +x hugo
