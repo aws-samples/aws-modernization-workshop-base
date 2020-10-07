@@ -9,7 +9,7 @@ You should only need to change the parameter for WorkshopHostname.  Once that is
 > Stack takes about 20 minutes
 ```
 ### DO NOT FORGET TO CHANGE THE STACK NAME
-aws cloudformation create-stack --stack-name MY-Workshop --template-body file://cloudfront-s3-website.yaml
+aws cloudformation create-stack --stack-name MY-Workshop --template-body file://cloudfront-s3-website.yaml --enable-termination-protection
 ```
 
 ### 2. Edit and deploy the pipeline in pipeline.yaml.  
@@ -19,7 +19,7 @@ In this one you will probably want to change the first 5 parameters.  ProjectNam
 > Stack completes in about 1-2 minutes  
 ```
 ### DO NOT FORGET TO CHANGE THE STACK NAME
-aws cloudformation create-stack --stack-name MY-Website-Pipeline --template-body file://pipeline.yaml --capabilities CAPABILITY_NAMED_IAM
+aws cloudformation create-stack --stack-name MY-Website-Pipeline --template-body file://pipeline.yaml --capabilities CAPABILITY_NAMED_IAM --enable-termination-protection
 ```
 
 If you check the Build Pipeline and Build logs you should see files successfully copied to your S3 bucket.
