@@ -14,9 +14,25 @@ available while supplies last.
 Please wait a few minutes to receive your AWS Credit Code via email. If you do 
 not receive an email confirmation, please check your company spam filter.
 If you're still having difficulty, please contact XYZ@
-   </td>
-  <td class="credit" style="width:30%"> <a href="https://www.google.com" target="_blank" class="credit-btn">Request AWS Credits</a>  </td>
+  </td>
+
+  <td class="credit" style="width:30%"> <a href=" https://pages.awscloud.com/awsmp-wsm-dev-workshop-series-credit-request.html?trk=lab_partnername" target="_blank" class="credit-btn">Request AWS Credits</a>  </td>
+</tr>
 </table>
+
+<table class="credit" style="width:100%">
+<tr class="credit">
+  <td class="credit" style="width:40%"> 
+      <a href="https://aws.amazon.com/marketplace" target="_blank"><img src="/images/available-in-awsmp-badge.png"></a>
+  </td>
+
+  <td class="credit" style="width:60%">
+
+  </td>
+
+</tr>
+</table>
+
 
 <table class="credit">
 <tr class="credit"><td class="credit" style="width:100%">

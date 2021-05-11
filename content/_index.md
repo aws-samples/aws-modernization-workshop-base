@@ -4,19 +4,8 @@ chapter: true
 weight: 1
 ---
 
-# AWS Modernization Workshop
+# AWS Modernization Workshop with Partner
 
 ### Welcome
 
-In this workshop you will learn why DevOps is a pattern for modernization and how to use patterns to release features and functionality at a faster pace.
-
-### Learning Objectives
-- Deploy Cloud9 as an IDE for completing workshop exercises.
-- How DevOps patterns help to release features and functionality faster.
-- Best practices for implementing 2 pizza team pipelines.
-
-{{% notice warning %}}
-<p style='text-align: left;'>
-The examples and sample code provided in this workshop are intended to be consumed as instructional content. These will help you understand how various AWS services can be architected to build a solution while demonstrating best practices along the way. These examples are not intended for use in production environments.
-</p>
-{{% /notice %}}
+Welcome to the AWS Modernization Workshop with Partner X ! In this workshop, you will gain hands-on experience using Partner X to deploy an application to AWS. Partner X is a self-service CI/CD platform that allows engineers and DevOps teams to build, test, deploy, and verify software, on-demand. This is a hands-on workshop where you will learn how to leverage Partner X for easier deployments of your application.
