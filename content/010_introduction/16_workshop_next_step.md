@@ -2,7 +2,6 @@
 title: "Workshop Next Steps"
 chapter: true
 weight: 16
-disableNextPrev: true
 ---
 
 ## Workshop Prerequisites

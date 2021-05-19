@@ -2,7 +2,6 @@
 title: "4. Configure workshop specific requirements"
 chapter: true
 weight: 16
-disableNextPrev: true
 ---
 
 ## Configure Workspace
