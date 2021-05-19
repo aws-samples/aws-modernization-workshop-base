@@ -1,8 +1,8 @@
-+++
-title = "AWS Credit Request"
-chapter = false
-weight = 2
-+++
+---
+title: "2. AWS Credit Request"
+chapter: false
+weight: 12
+---
 
 <table class="credit" style="width:100%">
 <tr class="credit">
@@ -10,20 +10,20 @@ weight = 2
 AWS Credits are available courtesy of AWS Marketplace. Submit the form and you
 will receive a confirmation email with an AWS Credit Code. Credits are 
 available while supplies last.
-            
-Please wait a few minutes to receive your AWS Credit Code via email. If you do 
+
+Please wait a few minutes to receive your AWS Credit Code via email. If you do
 not receive an email confirmation, please check your company spam filter.
-If you're still having difficulty, please contact XYZ@
+If you're still having difficulty, please contact ajonsso@amazon.com.
   </td>
 
-  <td class="credit" style="width:30%"> <a href=" https://pages.awscloud.com/awsmp-wsm-dev-workshop-series-credit-request.html?trk=lab_partnername" target="_blank" class="credit-btn">Request AWS Credits</a>  </td>
+  <td class="credit" style="width:30%"> <a href="https://pages.awscloud.com/awsmp-wsm-dev-workshop-series-credit-request.html?trk=lab_{partnerName}" target="_blank" class="credit-btn">Request AWS Credits</a>  </td>
 </tr>
 </table>
 
 <table class="credit" style="width:100%">
 <tr class="credit">
   <td class="credit" style="width:40%"> 
-      <a href="https://aws.amazon.com/marketplace" target="_blank"><img src="/images/available-in-awsmp-badge.png"></a>
+      <a href="https://aws.amazon.com/marketplace" target="_blank"><img src="/images/setup/available-in-awsmp-badge.png"></a>
   </td>
 
   <td class="credit" style="width:60%">
