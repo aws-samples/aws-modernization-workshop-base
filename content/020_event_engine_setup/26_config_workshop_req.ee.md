@@ -13,13 +13,13 @@ the EKS IAM authentication, so we will disable it and rely on the IAM role inste
 
 1. Return to your workspace and click the gear icon (in top right corner), or click to open a new tab and choose "Open Preferences"
 
-2. Select **AWS SETTINGS** and turn off **AWS managed temporary credentials**
+1. Select **AWS SETTINGS** and turn off **AWS managed temporary credentials**
 
-3. Close the Preferences tab
+1. Close the Preferences tab
    
     ![Turn off temp credentials](/images/setup/iamRoleWorkspace.gif)
 
-4. Copy and run (paste with **Ctrl+P** or **CMD+P**) the commands below.
+1. Copy and run (paste with **Ctrl+P** or **CMD+P**) the commands below.
 
       Before running it, review what it does by reading through the comments.
 
@@ -49,7 +49,7 @@ the EKS IAM authentication, so we will disable it and rely on the IAM role inste
       test -n "$AWS_REGION" && echo AWS_REGION is "$AWS_REGION" || echo AWS_REGION is not set
       
       # Validate that our IAM role is valid.
-      aws sts get-caller-identity --query Arn | grep BastionRole -q && echo "IAM role valid" || echo "IAM role NOT valid"
+      aws sts get-caller-identity --query Arn | grep partnerName-workshop-admin -q && echo "IAM role valid" || echo "IAM role NOT valid"
       ```
 
       {{% notice warning %}}

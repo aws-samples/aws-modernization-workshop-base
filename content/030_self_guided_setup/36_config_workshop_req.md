@@ -43,7 +43,7 @@ weight: 18
       export AWS_REGION=$(curl -s 169.254.169.254/latest/dynamic/instance-identity/document | jq -r '.region')
       test -n "$AWS_REGION" && echo AWS_REGION is "$AWS_REGION" || echo AWS_REGION is not set
    # Validate that our IAM role is valid.
-      aws sts get-caller-identity --query Arn | grep BastionRole -q && echo "IAM role valid" || echo "IAM role NOT valid"
+      aws sts get-caller-identity --query Arn | grep partnerName-workshop-admin -q && echo "IAM role valid" || echo "IAM role NOT valid"
       ```
 
    {{% notice warning %}}
