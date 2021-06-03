@@ -31,6 +31,10 @@ Resources:
       AccessControl: "BucketOwnerFullControl" 
       VersioningConfiguration:
         Status: Enabled 
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: 'AES256'
     
   WebsiteBucketPolicy:
     Type: AWS::S3::BucketPolicy
