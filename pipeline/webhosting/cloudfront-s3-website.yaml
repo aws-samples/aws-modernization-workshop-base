@@ -29,6 +29,8 @@ Resources:
     Properties:
       BucketName: !Join ['', [ !Ref 'WorkshopHostname', '.', !Ref 'DomainName']]
       AccessControl: "BucketOwnerFullControl"  
+      VersioningConfiguration:
+        Status: Enabled 
     
   WebsiteBucketPolicy:
     Type: AWS::S3::BucketPolicy
