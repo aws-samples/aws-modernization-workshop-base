@@ -47,7 +47,16 @@ Resources:
           Resource: !Join ['', ['arn:aws:s3:::', !Ref 'WebsiteBucket', /*]]
           Principal:
             CanonicalUser: 42e93f3a60683439eed54df135350cf7b2eaca4dcdf8099cb1d74c4c185bc11ac4f2cbad48bc74b3c609eaa6b983096d
-          
+        - Action: 's3:*'  
+          Effect: Deny
+          Resource: 
+            - !Join ['', ['arn:aws:s3:::', !Ref 'WebsiteBucket', /*]]
+            - !Join ['', ['arn:aws:s3:::', !Ref 'WebsiteBucket']]
+          Principal: '*'
+          Condition:
+            Bool:
+              aws:SecureTransport: false
+              
   WebsiteCloudFront:
     Type: AWS::CloudFront::Distribution
     Properties:
