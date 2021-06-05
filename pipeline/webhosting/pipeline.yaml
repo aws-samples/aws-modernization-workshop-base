@@ -11,15 +11,15 @@ Parameters:
   ProjectName:
     Type: String
     Description: Project Name
-    Default: xxxxxxx
+    Default: xxxxxxxx
   WebsiteBucket:
     Type: String
     Description: Website S3 bucket name
-    Default: xxxxxxx.awsworkshop.io 
+    Default: xxxxxxxx.awsworkshop.io 
   CloudFrontDistroId:
     Type: String
     Description: CloudFront distribution ID 
-    Default: yyyyyyy
+    Default: xxxxxxxx
   GitHubRepo:
     Type: String
     Description: repo name
@@ -116,21 +116,21 @@ Resources:
           - ServerSideEncryptionByDefault:
               SSEAlgorithm: 'AES256'
 
-    ArtifactBucketPolicy:
-      Type: AWS::S3::BucketPolicy
-      Properties:
-        Bucket: !Ref 'ArtifactBucket'
-        PolicyDocument:
-          Statement:
-          - Action: 's3:*'  
-            Effect: Deny
-            Resource: 
-              - !Join ['', ['arn:aws:s3:::', !Ref 'ArtifactBucket', /*]]
-              - !Join ['', ['arn:aws:s3:::', !Ref 'ArtifactBucket']]
-            Principal: '*'
-            Condition:
-              Bool:
-                aws:SecureTransport: false
+  ArtifactBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref 'ArtifactBucket'
+      PolicyDocument:
+        Statement:
+        - Action: 's3:*'  
+          Effect: Deny
+          Resource: 
+            - !Join ['', ['arn:aws:s3:::', !Ref 'ArtifactBucket', /*]]
+            - !Join ['', ['arn:aws:s3:::', !Ref 'ArtifactBucket']]
+          Principal: '*'
+          Condition:
+            Bool:
+              aws:SecureTransport: false
 
   CodeBuildProject:
     Type: AWS::CodeBuild::Project
