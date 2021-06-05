@@ -108,6 +108,29 @@ Resources:
   ArtifactBucket:
     Type: AWS::S3::Bucket
     DeletionPolicy: Delete
+    Properties:
+      VersioningConfiguration:
+        Status: Enabled 
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: 'AES256'
+
+    ArtifactBucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        Bucket: !Ref 'ArtifactBucket'
+        PolicyDocument:
+          Statement:
+          - Action: 's3:*'  
+            Effect: Deny
+            Resource: 
+              - !Join ['', ['arn:aws:s3:::', !Ref 'ArtifactBucket', /*]]
+              - !Join ['', ['arn:aws:s3:::', !Ref 'ArtifactBucket']]
+            Principal: '*'
+            Condition:
+              Bool:
+                aws:SecureTransport: false
 
   CodeBuildProject:
     Type: AWS::CodeBuild::Project
