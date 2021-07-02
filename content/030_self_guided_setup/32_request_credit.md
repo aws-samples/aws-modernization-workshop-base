@@ -10,10 +10,6 @@ weight: 12
 AWS Credits are available courtesy of AWS Marketplace. Submit the form and you
 will receive a confirmation email with an AWS Credit Code. Credits are 
 available while supplies last.
-
-Please wait a few minutes to receive your AWS Credit Code via email. If you do
-not receive an email confirmation, please check your company spam filter.
-If you're still having difficulty, please contact ajonsso@amazon.com.
   </td>
 
   <td class="credit" style="width:30%"> <a href="https://pages.awscloud.com/awsmp-wsm-dev-workshop-series-credit-request.html?trk=lab_{partnerName}" target="_blank" class="credit-btn">Request AWS Credits</a>  </td>
