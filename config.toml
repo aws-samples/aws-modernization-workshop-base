@@ -5,7 +5,7 @@ defaultContentLanguage = "en"
 title = "AWS Modernization Workshop Sample"
 theme = "hugo-theme-learn"
 metaDataFormat = "yaml"
-defaultContentLanguageInSubdir= "true"
+defaultContentLanguageInSubdir= "false"
 uglyurls = "true"
 enableEmoji = true
 
