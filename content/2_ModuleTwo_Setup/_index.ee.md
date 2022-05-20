@@ -33,3 +33,16 @@ With the exception of _index.md, the module folders and filenames should be chan
 
 ### Next Section Heading <!-- MODIFY THIS HEADING -->
 This paragraph block can optionally be utilized to lead into the next section of the workshop.
+
+
+### Event Engine <!-- MODIFY THIS HEADING -->
+Welcome to the Event Engine Setup section! This means that you are attending an AWS Hosted Workshop! Event Engine is a tool created at AWS that provisions AWS accounts for workshop events like this! These accounts will automatically terminate 24 hours after the workshop begins so participants don’t have to worry about leaving anything on. Each workshop participant will receive their own Event Engine AWS account.
+
+Here is a preview of what we will be setting up:
+
+    Creating a Cloud9 IDE Workspace
+    Creating an IAM Role
+    Attaching an IAM Role
+    Configuring Cloud9 Workspace
+
+The next page will show you how to gain access to your Event Engine dashboard!
