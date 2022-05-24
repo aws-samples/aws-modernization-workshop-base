@@ -5,13 +5,24 @@ weight: 1
 ---
 
 # AWS Modernization Workshop Base Template <!-- CHANGE THIS TO BE THE TITLE OF YOUR WORKSHOP -->
+<br>
+![Partner Logo](/images/AWS_Logo.png)  <!-- ADD YOUR PARTNER LOGO HERE USING THE INSTRUCTIONS BELOW -->
+<br>
+
 ### Welcome
 
-By utilizing this template, you can create your workshops with little coding knowledge. These workshops use the Hugo Framework and the hugo-theme-learn submodules. By writing content using simple markdown code, Hugo creates the necessary HTML for you. Examples of code, files, and folders here can be modified, copied, pasted, and deleted as necessary.
+By utilizing this template, you can create your workshops with little coding knowledge. These workshops use the Hugo Framework and the hugo-theme-learn submodules. By writing content using simple markdown code, Hugo creates the necessary HTML for you. Examples of code, files, and folders here can be modified, copied, pasted, and deleted as necessary. This paragraph should be changed to reflect what the workshop is going to be about and the use case it is designed for, generic or otherwise.
 
-### The Entry Point Of The Workshop
+{{% notice warning %}}
+The examples and sample code provided in this workshop are intended to be consumed as instructional content. These will help you understand how various AWS services can be architected to build a solution while demonstrating best practices along the way. These examples are not intended for use in production environments.
+{{% /notice %}}
+
+### Setting Up The Workshop: AWS Hosted Or Self-paced
+By utilizing the Hugo language localization settings, directing the workshop towards a specific setup can be simplified. The `Language` setting in the `config.toml` file will allow you to distinguish between having one option or both. Commenting out one of the languages will hide all files that are related to that setup. By default, only the self-guided setup will be enabled.
+
+### The Entry Point Of The Workshop And Naming Conventions
 All modifications should be done to files in the `content` folder. `_index.md` serves as the main entry point to your workshop. Adding modules can be done utilizing the format of `#_title` as a folder within `content`. By adding a number value to the title, this helps to keep the files structured in parity with the content of the workshop. A good practice for file naming is to have the folder be the module number and the submodule numbers add to that number reflecting their order. For example, the first module is `1_ModuleOne` and the submodules would be `11_SubmoduleOne`, `12_SubmoduleTwo`, and so forth. <br> <!-- <br> applies a line break to paragraphs -->
-To ensure the modules and submodules follow the correct structure order, adjust the "weight" value in the heading of the file to reflect the order you wish to use. Three module examples are included in this template with the second being split based upon the method of setup. The same rules apply for submodules. `_index.md` is the entry point of that module with submodules following the `#_title.md` format within the module folder.
+To ensure the modules and submodules follow the correct structure order, adjust the "weight" value in the heading of the file to reflect the order you wish to use. Three module examples are included in this template with the second being split based upon the method of setup. The same rules apply for submodules. `_index.md` will be the entry point of that module. Submodules should be named with the format of `{module number}{weight}_{title}.{language}.md`. For example, `11_Foreword.md` would be the first submodule of module one in the default language/setup. `31_PartnerSetup.ee.md` would be the first submodule of module 3 in the EventEngine language/setup.
 
 ### Working With Hugo Markdown and Shortcode
 The following links will supply you with all the reference documentation about Hugo markdown. For more experienced developers, inline HTML is also an option to add more customization. For example `<p style='text-align: left;'>` inline will allow you to adjust your text placement.

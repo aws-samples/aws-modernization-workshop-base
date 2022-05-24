@@ -7,8 +7,13 @@ weight: 2 # MODIFY THIS VALUE TO REFLECT THE ORDERING OF THE MODULES IF APPLICAB
 # Technical Issue / Problem <!-- MODIFY THIS HEADING TO REFLECT THE PROBLEM THE WORKSHOP IS ADDRESSING -->
 
 ## Submodule Two Heading <!-- MODIFY THIS SUBHEADING -->
-
 This paragraph block should be an introduction to the submodule.
+
+### Are you having this problem?
+This is a common problem or technical issue that occurs. Are you currently experiencing it?
+
+### Our solution can help
+By utilizing our solution, it will mitigate your problem by doing something!
 
 ### Submodule Two Subheading <!-- MODIFY THIS SUBHEADING -->
 This paragraph block should be utilized to start the submodule. <br>

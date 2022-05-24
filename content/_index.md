@@ -20,9 +20,9 @@ The examples and sample code provided in this workshop are intended to be consum
 ### Setting Up The Workshop: AWS Hosted Or Self-paced
 By utilizing the Hugo language localization settings, directing the workshop towards a specific setup can be simplified. The `Language` setting in the `config.toml` file will allow you to distinguish between having one option or both. Commenting out one of the languages will hide all files that are related to that setup. By default, only the self-guided setup will be enabled.
 
-### The Entry Point Of The Workshop
+### The Entry Point Of The Workshop And Naming Conventions
 All modifications should be done to files in the `content` folder. `_index.md` serves as the main entry point to your workshop. Adding modules can be done utilizing the format of `#_title` as a folder within `content`. By adding a number value to the title, this helps to keep the files structured in parity with the content of the workshop. A good practice for file naming is to have the folder be the module number and the submodule numbers add to that number reflecting their order. For example, the first module is `1_ModuleOne` and the submodules would be `11_SubmoduleOne`, `12_SubmoduleTwo`, and so forth. <br> <!-- <br> applies a line break to paragraphs -->
-To ensure the modules and submodules follow the correct structure order, adjust the "weight" value in the heading of the file to reflect the order you wish to use. Three module examples are included in this template with the second being split based upon the method of setup. The same rules apply for submodules. `_index.md` is the entry point of that module with submodules following the `#_title.md` format within the module folder.
+To ensure the modules and submodules follow the correct structure order, adjust the "weight" value in the heading of the file to reflect the order you wish to use. Three module examples are included in this template with the second being split based upon the method of setup. The same rules apply for submodules. `_index.md` will be the entry point of that module. Submodules should be named with the format of `{module number}{weight}_{title}.{language}.md`. For example, `11_Foreword.md` would be the first submodule of module one in the default language/setup. `31_PartnerSetup.ee.md` would be the first submodule of module 3 in the EventEngine language/setup.
 
 ### Working With Hugo Markdown and Shortcode
 The following links will supply you with all the reference documentation about Hugo markdown. For more experienced developers, inline HTML is also an option to add more customization. For example `<p style='text-align: left;'>` inline will allow you to adjust your text placement.
@@ -41,9 +41,6 @@ Any images and static media to be included in the workshop need to be placed in 
 
 For example, the markdown for this dog is `![An adorable puppy](/images/dog.jpg)` and the image is in the `static/images` folder. <br>
 ![An adorable puppy](/images/dog.jpg)
-
-### Changing The Menu Logo
-This refers to the logo in the top-left corner. In the `layouts/partials` folder, modify the file name to reflect the name of the picture that you have placed in the `static/images` folder.
 
 ### Creating Links
 The format for creating links is `[Link Display Text](http://example.com)`. For example, this link [Hugo Framework](https://gohugo.io/about/what-is-hugo/) was created using `[Hugo Framework](https://gohugo.io/about/what-is-hugo/)`.

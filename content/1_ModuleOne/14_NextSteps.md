@@ -6,11 +6,11 @@ weight: 4 # MODIFY THIS VALUE TO REFLECT THE ORDERING OF THE MODULES IF APPLICAB
 
 # Next Steps <!-- MODIFY THIS HEADING IF APPLICABLE -->
 
-## Submodule Five Heading <!-- MODIFY THIS SUBHEADING -->
+## Submodule Four Heading <!-- MODIFY THIS SUBHEADING -->
 
 This paragraph block should be an introduction to the submodule.
 
-### Submodule Five Subheading <!-- MODIFY THIS SUBHEADING -->
+### Submodule Four Subheading <!-- MODIFY THIS SUBHEADING -->
 This paragraph block should be utilized to start the submodule. <br>
 
 {{% notice info %}}
