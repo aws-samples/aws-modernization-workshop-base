@@ -13,7 +13,7 @@ This paragraph block should be an introduction to the module.
 ### Module One Subheading <!-- MODIFY THIS SUBHEADING -->
 This paragraph block should be utilized to briefly explain the submodules that are going to be presented. <br>
 
-#### Foreward <!-- MODIFY THIS SUBHEADING -->
+#### Foreword <!-- MODIFY THIS SUBHEADING -->
 A brief overview of submodule one.
 
 #### Partner Identification <!-- MODIFY THIS SUBHEADING -->

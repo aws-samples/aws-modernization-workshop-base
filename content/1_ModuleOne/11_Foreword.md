@@ -1,16 +1,16 @@
 ---
-title: "Next Steps" # MODIFY THIS TITLE TO REFLECT NEXT STEPS IF APPLICABLE
+title: "Foreword" # MODIFY THIS TITLE IF APPLICABLE
 chapter: true
-weight: 5 # MODIFY THIS VALUE TO REFLECT THE ORDERING OF THE MODULES IF APPLICABLE
+weight: 1 # MODIFY THIS VALUE TO REFLECT THE ORDERING OF THE MODULES IF APPLICABLE
 ---
 
-# Next Steps <!-- MODIFY THIS HEADING IF APPLICABLE -->
+# Foreword <!-- MODIFY THIS HEADING IF APPLICABLE -->
 
-## Submodule Five Heading <!-- MODIFY THIS SUBHEADING -->
+## Submodule One Heading <!-- MODIFY THIS SUBHEADING -->
 
 This paragraph block should be an introduction to the submodule.
 
-### Submodule Five Subheading <!-- MODIFY THIS SUBHEADING -->
+### Submodule One Subheading <!-- MODIFY THIS SUBHEADING -->
 This paragraph block should be utilized to start the submodule. <br>
 
 {{% notice info %}}

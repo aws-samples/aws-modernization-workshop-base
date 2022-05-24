@@ -1,6 +1,6 @@
 baseURL = "/"
 languageCode = "en-US"
-defaultContentLanguage = "selfguided" # Modify to change the default language/version of the site
+defaultContentLanguage = "en" # Modify to change the default language/version of the site
 
 title = "AWS Modernization Workshop Sample"
 theme = "hugo-theme-learn"
@@ -30,7 +30,7 @@ enableEmoji = true
   # A title for shortcuts in menu is set by default. Set this to true to disable it. 
   disableShortcutsTitle = false
   # When using mulitlingual website, disable the switch language button.
-  disableLanguageSwitchingButton = false
+  disableLanguageSwitchingButton = true
   # Hide breadcrumbs in the header and only show the current page title
   disableBreadcrumb = false
   # Hide Next and Previous page buttons normally displayed full height beside content
@@ -80,10 +80,10 @@ weight = 23
     hrefTargetBlank = true
 
 [Languages] # Modify to change the language/version settings and/or version secondary extensions
-[Languages.selfguided]
-title = "Self-Guided Setup"
+[Languages.en]
+title = "English"
 weight = 1
-languageName = "Self-Guided Setup"
+languageName = "English"
 
 [Languages.ee]
 title = "Event Engine Setup"

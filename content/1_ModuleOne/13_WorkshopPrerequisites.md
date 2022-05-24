@@ -1,16 +1,16 @@
 ---
-title: "Partner Identification" # REPLACE THIS TITLE WITH THE PARTNER NAME
+title: "Workshop Prerequisites" # MODIFY THIS TITLE IF APPLICABLE
 chapter: true
 weight: 3 # MODIFY THIS VALUE TO REFLECT THE ORDERING OF THE MODULES IF APPLICABLE
 ---
 
-# Partner Identification <!-- MODIFY THIS HEADING WITH THE PARTNER NAME -->
+# Workshop Prerequisites <!-- MODIFY THIS HEADING IF APPLICABLE -->
 
-## Submodule Three Heading <!-- MODIFY THIS SUBHEADING -->
+## Submodule Four Heading <!-- MODIFY THIS SUBHEADING -->
 
 This paragraph block should be an introduction to the submodule.
 
-### Submodule Three Subheading <!-- MODIFY THIS SUBHEADING -->
+### Submodule Four Subheading <!-- MODIFY THIS SUBHEADING -->
 This paragraph block should be utilized to start the submodule. <br>
 
 {{% notice info %}}
