@@ -8,7 +8,7 @@ weight: 4 # MODIFY THIS VALUE TO REFLECT THE ORDERING OF THE MODULES IF APPLICAB
 
 ## Submodule Four Heading <!-- MODIFY THIS SUBHEADING -->
 
-This paragraph block should be an introduction to the submodule.
+This paragraph block should be an introduction to the submodule. What steps should the user take after learning the skills to implement the solution? What is the bigger picture that this solution can be a part of?
 
 ### Submodule Four Subheading <!-- MODIFY THIS SUBHEADING -->
 This paragraph block should be utilized to start the submodule. <br>

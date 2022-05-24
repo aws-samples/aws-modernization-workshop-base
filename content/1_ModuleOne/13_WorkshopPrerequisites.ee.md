@@ -8,7 +8,7 @@ weight: 3 # MODIFY THIS VALUE TO REFLECT THE ORDERING OF THE MODULES IF APPLICAB
 
 ## Submodule Three Heading <!-- MODIFY THIS SUBHEADING -->
 
-This paragraph block should be an introduction to the submodule.
+This paragraph block should be an introduction to the submodule. Are there any prerequisites the user must perform to begin the workshop? Do they need to sign up for any external accounts or install any tools?
 
 ### Submodule Three Subheading <!-- MODIFY THIS SUBHEADING -->
 This paragraph block should be utilized to start the submodule. <br>
