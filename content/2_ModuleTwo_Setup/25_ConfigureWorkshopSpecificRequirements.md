@@ -7,10 +7,24 @@ weight: 5 # MODIFY THIS VALUE TO REFLECT THE ORDERING OF THE MODULES
 <!-- MORE SUBMODULES CAN BE ADDED TO DIVIDE UP THE SETUP INTO SMALLER SECTIONS -->
 <!-- COPY AND PASTE THIS SUBMODULE FILE, RENAME, AND CHANGE THE CONTENTS AS NECESSARY -->
 
+# Configuring Workshop Specific Requirements <!-- MODIFY THIS HEADING IF NECESSARY -->
 
-### Configure Workspace <!-- MODIFY THIS SUBHEADING -->
+## Submodule Five Heading <!-- MODIFY THIS SUBHEADING -->
+
+This paragraph block can be used to explain how to configure any specific workshop requirements if necessary. Example content guidance can be found at the bottom of the page.
+
+{{% notice info %}}
+<p style='text-align: left;'>
+**REMOVE:** With the exception of _index.md, the module folders and filenames should be changed to better reflect their content, i.e. 1_Planning as the folder and 11_HowToBegin as the first submodule. Changing the "weight" value of the header is ultimately what reflects the order the modules are presented.
+</p>
+{{% /notice %}}
+
+### Next Section Heading <!-- MODIFY THIS HEADING -->
+This paragraph block can optionally be utilized to lead into the next section of the workshop.
 
 
+#### Example Content Guidance
+# Configure Workspace <!-- MODIFY THIS SUBHEADING -->
 
     Return to your workspace and click the gear icon (in top right corner), or click to open a new tab and choose “Open Preferences”
 

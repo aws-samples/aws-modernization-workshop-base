@@ -3,11 +3,6 @@ title: "Partner Setup Instructions" # MODIFY THIS TITLE
 chapter: true
 weight: 1 # MODIFY THIS VALUE TO REFLECT THE ORDERING OF THE MODULES
 ---
-### Adding Images and Static Media
-Any images and static media to be included in the workshop need to be placed in the `static/images` folder. The format to display an image is as follows: `![Alternate Text](/images/imagename.jpg)` <br>
-
-For example, the markdown for this dog is `![An adorable puppy](/images/dog.jpg)` and the image is in the `static/images` folder. <br>
-![An adorable puppy](/images/dog.jpg)
 
 # Partner Setup Instructions <!-- MODIFY THIS HEADING -->
 
@@ -20,7 +15,7 @@ This paragraph block should be utilized to start the submodule. <br>
 
 {{% notice info %}}
 <p style='text-align: left;'>
-With the exception of _index.md, the module folders and filenames should be changed to better reflect their content, i.e. 1_Planning as the folder and 11_HowToBegin as the first submodule. Changing the "weight" value of the header is ultimately what reflects the order the modules are presented.
+**REMOVE:** With the exception of _index.md, the module folders and filenames should be changed to better reflect their content, i.e. 1_Planning as the folder and 11_HowToBegin as the first submodule. Changing the "weight" value of the header is ultimately what reflects the order the modules are presented.
 </p>
 {{% /notice %}}
 
@@ -28,17 +23,14 @@ With the exception of _index.md, the module folders and filenames should be chan
 This paragraph block can be utilized to lead into the next section of the workshop (which might be a conclusion) or be a conclusion itself.
 
 
+#### Example Guidance Content Below
 
-## Example provided below
 
-
-### Do you require attendees to sign up for things? <!-- MODIFY THIS HEADING -->
+# Do you require attendees to sign up for things? <!-- MODIFY THIS HEADING -->
 
 
 ### Introduction <!-- MODIFY THIS HEADING -->
 In this section, we are going to discuss tasks and concepts like retrieving access tokens and other configurations within some integration services.
-
-
 
 
 ### Docker Hub <!-- MODIFY THIS HEADING -->

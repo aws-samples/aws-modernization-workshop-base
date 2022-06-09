@@ -18,8 +18,14 @@ A brief overview of submodule one.
 
 {{% notice info %}}
 <p style='text-align: left;'>
-With the exception of _index.md, the module folders and filenames should be changed to better reflect their content, i.e. 1_Planning as the folder and 11_HowToBegin as the first submodule. Changing the "weight" value of the header is ultimately what reflects the order the modules are presented.
+**REMOVE:** With the exception of _index.md, the module folders and filenames should be changed to better reflect their content, i.e. 1_Planning as the folder and 11_HowToBegin as the first submodule. Changing the "weight" value of the header is ultimately what reflects the order the modules are presented.
 </p>
+{{% /notice %}}
+
+**REMOVE:** Every introduction page should include the following warning label.
+
+{{% notice warning %}}
+The examples and sample code provided in this workshop are intended to be consumed as instructional content. These will help you understand how various AWS services can be architected to build a solution while demonstrating best practices along the way. These examples are not intended for use in production environments.
 {{% /notice %}}
 
 ### Next Section Heading <!-- MODIFY THIS HEADING -->
