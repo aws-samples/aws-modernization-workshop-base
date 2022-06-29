@@ -1,6 +1,6 @@
 baseURL = "/"
 languageCode = "en-US"
-defaultContentLanguage = "en"
+defaultContentLanguage = "en" # Modify to change the default language/version of the site
 
 title = "AWS Modernization Workshop Sample"
 theme = "hugo-theme-learn"
@@ -78,3 +78,14 @@ weight = 23
   defaultMarkdownHandler = "blackfriday"
   [markup.blackFriday]
     hrefTargetBlank = true
+
+[Languages] # Modify to change the language/version settings and/or version secondary extensions
+[Languages.en]
+title = "English"
+weight = 1
+languageName = "English"
+
+[Languages.ee]
+title = "Event Engine Setup"
+weight = 2
+languageName = "Event Engine Setup"
