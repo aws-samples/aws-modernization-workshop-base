@@ -1,61 +1,92 @@
-# AWSWorkshop.io base workshop 
+# eksa-baremetal-workshop
 
-This is a base workshop. Clone and start from this repo to create your workshop.
 
-## Versions
- * 1.0
-    * Initial Release:
-    Overhauled to add prescriptive guidance. Improved readability and ease of use by making the base more templatized.
 
+## Getting started
+
+To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+
+Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+
+## Add your files
+
+- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
+- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+
+```
+cd existing_repo
+git remote add origin https://gitlab.aws.dev/cdk-eks-blueprints/eksa-baremetal-workshop.git
+git branch -M main
+git push -uf origin main
+```
+
+## Integrate with your tools
+
+- [ ] [Set up project integrations](https://gitlab.aws.dev/cdk-eks-blueprints/eksa-baremetal-workshop/-/settings/integrations)
+
+## Collaborate with your team
+
+- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
+- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
+- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
+- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
+- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+
+## Test and Deploy
+
+Use the built-in continuous integration in GitLab.
+
+- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
+- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
+- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
+- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
+- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+
+***
+
+# Editing this README
+
+When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+
+## Suggestions for a good README
+Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+
+## Name
+Choose a self-explaining name for your project.
 
 ## Description
+Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
 
- This is the base repo for building workshops with AWS. It utilizes the Hugo framework which involves simple mark down and HTML elements.
+## Badges
+On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
 
- In this workshop you are going to learn how to plan, build, and launch an AWS workshop.
+## Visuals
+Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
 
- ## What is a workshop?
+## Installation
+Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
 
- An AWS workshop is a tool used to educate users and end customers on how to leverage partner solutions on their AWS workload. What better way to learn than to let customers get hands on with building or instrumenting products or services in an actual AWS environment? A workshop format is used because it scales well, meaning you can deliver the content and message whenever and wherever the customer happens to be: whether the customer is at work, home, or at an AWS event, they can get hands on and learn about building products and solutions.
+## Usage
+Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
 
- ## High level Planning
+## Support
+Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
 
- While creating your workshop you will want to think about what you want to accomplish and how you want to educate users about your product. Depending on your needs you will either build a new workshop or use an existing one and modify it as you see fit.
+## Roadmap
+If you have ideas for releases in the future, it is a good idea to list them in the README.
 
- You will want to create a high-level plan for your workshop and determine the problem you are looking to solve. Identifying key concepts that you want the customers to learn about is also ideal. Then outlining what components and AWS services that you are going to utilize is also a key step. This will play a big role in creating the workflow that your customers will be following along with during the workshop. The workflow should be presented as a story and have an introduction, an educational body, and a conclusion that ties all the pieces together. A cleanup section will follow suit so that the customers can make sure their environments will not be charged after they finish the workshop. Determining what kind of event this workshop will be presented at is also rather important as it will help you have a way to capture leads which should be the end goal in mind. (More details are covered in the workshop itself)
+## Contributing
+State if you are open to contributions and what your requirements are for accepting them.
 
- ## Types of Events
- 
- Identifying whether your workshop will be a self-paced workshop or an AWS hosted event will be crucial in your planning as well. If it’s a self-paced workshop then having highly contextualized sections will be very important as there won’t be anyone there to answer questions. Making sure that the workshop itself has all relevant information or that clear references have been outlined for any documentation that will be needed to successfully complete the workshop are crucial to the workshops overall success.
+For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
 
- ## Build
+You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
 
- In this section you will be setting up your workflow, edit and build, test your environments, and publish the workshop if everything is prescriptive enough. Follow along to learn how to complete all of these tasks. 
-
-## Launch
-
- With your workshop now being published, you can now identify some key got to market activities. 
-
-## FAQ
-
- Commonly asked questions along with tools, tips, and samples that might be relevant to your workshop. Modify this FAQ section as you best see fit for your specific workshop and your customer base. 
-
-## Authors
-
-Contributors names and contact info
-
-* James Bland (@jamesbland123)
-* Parker Perry (@parkerperry)  
-* James Spencer (@folrig)
-* Eugene Mu (@eugenemu)
+## Authors and acknowledgment
+Show your appreciation to those who have contributed to the project.
 
 ## License
+For open source projects, say how it is licensed.
 
-This project is licensed. See the LICENSE.md file for details
-
-## Acknowledgments
-
-* Markdown cheat sheet (https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
-* Learn theme markdown (https://learn.netlify.app/en/cont/markdown/)
-* Menu extras and shortcuts (https://learn.netlify.app/en/cont/menushortcuts/) 
-* Using Font Awesome Emoji's to help your page pop (https://learn.netlify.app/en/cont/icons/)
+## Project status
+If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
