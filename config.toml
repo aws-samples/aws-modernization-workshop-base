@@ -75,8 +75,8 @@ url = "https://www.appmeshworkshop.com/"
 weight = 23
 
 [markup]
-  defaultMarkdownHandler = "blackfriday"
-  [markup.blackFriday]
+  defaultMarkdownHandler = "goldmark"
+  [markup.goldmark]
     hrefTargetBlank = true
 
 [Languages] # Modify to change the language/version settings and/or version secondary extensions
