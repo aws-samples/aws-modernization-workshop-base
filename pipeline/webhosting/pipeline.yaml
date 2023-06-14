@@ -107,7 +107,6 @@ Resources:
                 Action:
                   - codebuild:StartBuild
                   - codebuild:BatchGetBuilds
-                  - iam:PassRole
 
   ArtifactBucket:
     Type: AWS::S3::Bucket
