@@ -46,11 +46,12 @@ Resources:
               Service: codebuild.amazonaws.com
             Action: sts:AssumeRole
       Policies:
-        - PolicyName: root
+        - PolicyName: CodeBuildService
           PolicyDocument:
             Version: 2012-10-17
             Statement:
-              - Resource: "*"
+              - Resource: 
+                  - !Sub 'arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/${ProjectName}-Workshop-website*'
                 Effect: Allow
                 Action:
                   - logs:CreateLogGroup
@@ -90,7 +91,7 @@ Resources:
               Service: codepipeline.amazonaws.com
             Action: sts:AssumeRole
       Policies:
-        - PolicyName: root
+        - PolicyName: CodePipelineService
           PolicyDocument:
             Version: 2012-10-17
             Statement:
@@ -102,7 +103,8 @@ Resources:
                   - s3:GetObject
                   - s3:GetObjectVersion
                   - s3:GetBucketVersioning
-              - Resource: "*"
+              - Resource: 
+                  - !Sub 'arn:aws:codebuild:${AWS::Region}:${AWS::AccountId}:project/${ProjectName}-Workshop-website'
                 Effect: Allow
                 Action:
                   - codebuild:StartBuild
