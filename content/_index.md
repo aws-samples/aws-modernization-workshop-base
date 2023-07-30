@@ -1,24 +1,31 @@
 ---
-title: "AWS Modernization Workshop Base Template" # MODIFY THIS TO BE THE TITLE OF YOUR WORKSHOP
+title: "Implement EDA using Solace and AWS"
 chapter: true
 weight: 1
 ---
 
-# AWS Modernization Workshop Base Template <!-- CHANGE THIS TO BE THE TITLE OF YOUR WORKSHOP -->
-<br>
-![Partner Logo](/images/AWS_Logo.png)  <!-- ADD YOUR PARTNER LOGO HERE USING THE INSTRUCTIONS BELOW -->
-<br>
+# Implement EDA using Solace and AWS
+
+![Solace Logo](/images/logos/Solace_Logo.png)
+
 
 ## Welcome
 
-**REMOVE:** By utilizing this template, you can create your workshops with little coding knowledge. These workshops use the Hugo Framework and the hugo-theme-learn submodules. By writing content using simple markdown code, Hugo creates the necessary HTML for you. Examples of code, files, and folders here can be modified, copied, pasted, and deleted as necessary. Block sections of instruction that should be removed will be explicitly marked with **REMOVE**. Other sections should be modified to reflect the workshop. For guidance on how to utilize the Hugo framework and markdown, please refer to the module titled "Hugo Framework And Markdown". That module can be removed once building the workshop is complete.
+During this workshop you will learn how to use fully managed Solace broker deployed on AWS cloud to source market data from 
+various regions, produce and consume events to the Solace broker and integrate with various AWS services using native Solace connectors.
+As a part of this workshop, you will be provisioning and implementing a sample region of a trading company and plug-in to the existing 
+infrastructure and application landscape.
 
-This paragraph block can give the high level overview of the learning goals and use cases of what the workshop is trying to teach.
+## Who should attend
 
-This paragraph block can be used to introduce the company and how the solution being taught addresses specific issues.
-
-**REMOVE:** Every introduction page should include the following warning label.
+- Software developers
+- Solution Architects
+- DevOps Engineers
+- Anyone who loves Event Driven Architecture and wants to learn more
 
 {{% notice warning %}}
-The examples and sample code provided in this workshop are intended to be consumed as instructional content. These will help you understand how various AWS services can be architected to build a solution while demonstrating best practices along the way. These examples are not intended for use in production environments.
+The examples and sample code provided in this workshop are intended to be consumed as instructional content. These will
+help you understand how various Solace and AWS services can be architected to build a solution while demonstrating best practices
+along the way. These examples are not intended for use in production environments.
+Content authored by Hari Rangarajan - Hari.Rangarajan@Solace.com
 {{% /notice %}}

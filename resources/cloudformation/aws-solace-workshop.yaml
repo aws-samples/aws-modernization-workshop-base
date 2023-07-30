@@ -1,0 +1,274 @@
+# Author: Hari Rangarajan
+# Project: Solace-AWS Workshop
+
+Metadata:
+  License: Apache-2.0
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'This template will create required infrastructure for AWS and solace '
+
+# Keypair has to be created as a manual step. 
+Parameters:
+  KeyName:
+    Description: Name of an existing EC2 KeyPair to enable SSH access
+    Type: AWS::EC2::KeyPair::KeyName
+    ConstraintDescription: Must be the name of an existing EC2 KeyPair.
+Resources:
+  solacesecwkspvpc:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+      Tags:
+        - Key: stack
+          Value: solace-workshop
+        - Key: Name
+          Value: solace-wrksp-vpc
+  solacesecig: #Internet Gateway
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: stack
+          Value: production
+        - Key: Name
+          Value: solace-wrksp-ig
+  AttachGateway: #Attach Internet Gateway
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId:
+        Ref: solacesecwkspvpc
+      InternetGatewayId:
+        Ref: solacesecig
+  # Lets create two public subnets
+  publsubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: solacesecwkspvpc
+      CidrBlock: 10.0.3.0/24
+      MapPublicIpOnLaunch: true
+      AvailabilityZone: "ap-northeast-1a"
+      Tags:
+        - Key: stack
+          Value: solace-workshop
+        - Key: Name
+          Value: solace-wrksp-pub-sub-1
+  publsubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: solacesecwkspvpc
+      CidrBlock: 10.0.4.0/24
+      MapPublicIpOnLaunch: true
+      AvailabilityZone: "ap-northeast-1a"
+      Tags:
+        - Key: stack
+          Value: solace-workshop
+        - Key: Name
+          Value: solace-wrksp-pub-sub-2
+  
+  # Lets create public route tables and associate them with subnets. 
+  PubRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Ref: solacesecwkspvpc
+      Tags:
+        - Key: stack
+          Value: solace-workshop
+        - Key: Name
+          Value: public-route-table
+  PubSubnetRouteTableAssociation1:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: publsubnet1
+      RouteTableId:
+        Ref: PubRouteTable
+  PubSubnetRouteTableAssociation2:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: publsubnet2
+      RouteTableId:
+        Ref: PubRouteTable
+  # Lets add default route to internet gateway from public subnet. This will ensure that 
+  # route to internet is via IG
+  PublicRoute:
+    Type: AWS::EC2::Route
+    DependsOn: solacesecig
+    Properties:
+      RouteTableId:
+        Ref: PubRouteTable
+      DestinationCidrBlock: "0.0.0.0/0"
+      GatewayId:
+        Ref: solacesecig
+
+  # Lets create security group and assign ingress traffic rules. 
+  PubSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow inbound traffic on TCP ports 22, 8081, and 7888
+      VpcId:
+        Ref: solacesecwkspvpc
+      Tags:
+        - Key: stack
+          Value: solace-workshop
+        - Key: Name
+          Value: PubSecurityGroup
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          CidrIp: "0.0.0.0/0"
+          FromPort: 22
+          ToPort: 22
+        - IpProtocol: tcp
+          CidrIp: "0.0.0.0/0"
+          FromPort: 8081
+          ToPort: 8081
+        - IpProtocol: tcp
+          CidrIp: "0.0.0.0/0"
+          FromPort: 7888
+          ToPort: 7888
+  PubCommunication:
+    Type: "AWS::EC2::SecurityGroupIngress"
+    Properties:
+      IpProtocol: tcp
+      CidrIp: "0.0.0.0/0"
+      FromPort: 22
+      ToPort: 22
+      GroupId: !Ref PubSecurityGroup
+      Tags:
+        - Key: Name
+          Value: PubCommunicationRt
+
+  # Lets create NAT Gateway and EIP before creating private subnets & routes. 
+  NATGatewayEIP:
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: vpc
+    DependsOn: AttachGateway
+
+  NATGateway:
+    Type: AWS::EC2::NatGateway
+    Properties:
+      AllocationId: !GetAtt NATGatewayEIP.AllocationId
+      SubnetId:
+        Ref: publsubnet2
+      Tags:
+        - Key: stack
+          Value: production
+        - Key: Name
+          Value: aws-solace-sec-ng
+
+
+  # Lets create two private subnets
+  prvtsubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: solacesecwkspvpc
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone: "ap-northeast-1a"
+      Tags:
+        - Key: stack
+          Value: solace-workshop
+        - Key: Name
+          Value: solace-wrksp-pvt-sub-1
+  prvtsubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: solacesecwkspvpc
+      CidrBlock: 10.0.2.0/24
+      AvailabilityZone: "ap-northeast-1a"
+      Tags:
+        - Key: stack
+          Value: solace-workshop
+        - Key: Name
+          Value: solace-wrksp-pvt-sub-2
+
+  # Private Route table
+  PvtRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Ref: solacesecwkspvpc
+      Tags:
+        - Key: stack
+          Value: solace-workshop
+        - Key: Name
+          Value: private-route-table
+
+  # Associate route table to subnet
+  PvtSubnetRouteTableAssociation1:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: prvtsubnet1
+      RouteTableId:
+        Ref: PvtRouteTable
+  PvtSubnetRouteTableAssociation2:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: prvtsubnet2
+      RouteTableId:
+        Ref: PvtRouteTable
+
+  # Private Subnet will have routes to NAT Gateway for public internet access
+  # This is needed for solace HSM access. Ideally it should be based on private link
+  # HSM and private link access will come in later phases.
+
+  RouteNATGateway:
+    DependsOn: NATGateway
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId:
+        Ref: PvtRouteTable
+      DestinationCidrBlock: '0.0.0.0/0'
+      NatGatewayId:
+        Ref: NATGateway
+
+  # Private Security Group
+  PvtSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: This will allow traffic SSH to instances from local
+      VpcId:
+        Ref: solacesecwkspvpc
+      Tags:
+        - Key: stack
+          Value: solace-workshop
+        - Key: Name
+          Value: PvtSecurityGroup
+
+  # Lets add private security group rules
+  PrivateSecRules:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      IpProtocol: tcp
+      FromPort: 22
+      ToPort: 22
+      SourceSecurityGroupId:
+        Fn::GetAtt:
+          - PubSecurityGroup
+          - GroupId
+      GroupId:
+        Fn::GetAtt:
+          - PvtSecurityGroup
+          - GroupId
+
+  # Lets create public instance and private instances. 
+  PublicInstance1:
+    Type: "AWS::EC2::Instance"
+    Properties:
+      ImageId: ami-0947c48ae0aaf6781
+      InstanceType: t2.micro
+      KeyName:
+        Ref: KeyName
+      SecurityGroupIds:
+        - !Ref PubSecurityGroup
+      SubnetId: !Ref publsubnet1
+      Tags:
+        - Key: Name
+          Value: solaceSecPublicHost

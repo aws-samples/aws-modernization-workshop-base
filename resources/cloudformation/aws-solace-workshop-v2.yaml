@@ -1,0 +1,109 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'This template will create a Cloud9 environment with an EC2 instance allowing incoming TCP traffic on ports 8081 and 7888'
+
+Resources:
+  solacesecwkspvpc:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+      Tags:
+        - Key: stack
+          Value: solace-workshop
+        - Key: Name
+          Value: solace-wrksp-vpc
+
+  # Lets create two private subnets
+  prvtsubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: solacesecwkspvpc
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone: "ap-northeast-1a"
+      Tags:
+        - Key: stack
+          Value: solace-workshop
+        - Key: Name
+          Value: solace-wrksp-pvt-sub-1
+
+  # Your existing resources (Route Table, Route, etc.) here...
+
+  # Lets create security group and assign ingress traffic rules.
+  PubSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow inbound traffic on TCP ports 22, 8081, and 7888
+      VpcId:
+        Ref: solacesecwkspvpc
+      Tags:
+        - Key: stack
+          Value: solace-workshop
+        - Key: Name
+          Value: PubSecurityGroup
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          CidrIp: "0.0.0.0/0"
+          FromPort: 22
+          ToPort: 22
+        - IpProtocol: tcp
+          CidrIp: "0.0.0.0/0"
+          FromPort: 8081
+          ToPort: 8081
+        - IpProtocol: tcp
+          CidrIp: "0.0.0.0/0"
+          FromPort: 7888
+          ToPort: 7888
+
+  PubCommunication:
+    Type: "AWS::EC2::SecurityGroupIngress"
+    Properties:
+      IpProtocol: tcp
+      CidrIp: "0.0.0.0/0"
+      FromPort: 22
+      ToPort: 22
+      GroupId: !Ref PubSecurityGroup
+      Tags:
+        - Key: Name
+          Value: PubCommunicationRt
+
+  # Your existing IAM Role and Instance Profile resources here...
+
+  # Create the IAM Role for Cloud9 with the necessary permissions
+  Cloud9SSMInstanceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: Cloud9SSMInstanceRole
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
+        # Add any additional managed policies as needed
+
+  # Attach the necessary policies to the instance profile
+  Cloud9SSMInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      InstanceProfileName: Cloud9SSMInstanceProfile
+      Roles:
+        - !Ref Cloud9SSMInstanceRole
+
+  # Create a new Cloud9 environment with a new EC2 instance
+  Cloud9Environment:
+    Type: AWS::Cloud9::EnvironmentEC2
+    Properties:
+      InstanceType: t2.micro  # Specify the desired EC2 instance type for the Cloud9 environment
+      AutomaticStopTimeMinutes: 30
+      ConnectionType: CONNECT_SSM
+      SubnetId: !Ref prvtsubnet1
+      Repositories:
+        - PathComponent: "solace-aws-integration"
+          RepositoryUrl: "https://github.com/SolaceLabs/solace-aws-integration.git"  # Replace with your GitHub repository URL
+      # Associate the IAM instance profile with the EC2 instance of the Cloud9 environment
+      InstanceProfileName: !Ref Cloud9SSMInstanceProfile

@@ -1,0 +1,85 @@
+{
+	"info": {
+		"_postman_id": "b410fff0-fe1b-47d8-815b-c3dec8f20901",
+		"name": "Solace-AWS-Demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26039126"
+	},
+	"item": [
+		{
+			"name": "create queue subscription",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{REMOTE_VPN_SEMP_PASSWORD}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{REMOTE_VPN_SEMP_USERNAME}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"queueName\":\"{{REMOTE_VPN_QUEUE_NAME}}\",\n   \"subscriptionTopic\": \"trading/quotes/summary/event/v1/published/*\"\n}"
+				},
+				"url": {
+					"raw": "{{REMOTE_VPN_SEMP_URL}}/msgVpns/{{REMOTE_VPN_NAME}}/queues/{{REMOTE_VPN_QUEUE_NAME}}/subscriptions",
+					"host": [
+						"{{REMOTE_VPN_SEMP_URL}}"
+					],
+					"path": [
+						"msgVpns",
+						"{{REMOTE_VPN_NAME}}",
+						"queues",
+						"{{REMOTE_VPN_QUEUE_NAME}}",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.environment.get(\"REMOTE_VPN_SEMP_URL\");",
+					"pm.environment.get(\"REMOTE_VPN_NAME\");",
+					"pm.environment.get(\"REMOTE_VPN_QUEUE_NAME\");",
+					"pm.environment.get(\"REMOTE_VPN_SEMP_USERNAME\");",
+					"pm.environment.get(\"REMOTE_VPN_SEMP_PASSWORD\");",
+					""
+				]
+			}
+		}
+	]
+}
