@@ -21,7 +21,7 @@ In this section we will be linking the S3 bucket with the Solace event mesh usin
   - Access key id : Put in the **Access key** that you created from the IAM console.
   - Access key : Put in the **Secret Access key** that you created from the IAM console.
   - Bucket name : Name of the bucket that you created
-  - Bucket region : The region of the bucket where you created. In our case, it was `ap-northeast-1`
+  - Bucket region : The region of the bucket where you created. In our case, it was `ap-northeast-1` \
 Below is a screenshot of the step for your reference
 ![S3 - Create-connector-step-2](/images/moduleFour/S3-connector-step-2.png)
 

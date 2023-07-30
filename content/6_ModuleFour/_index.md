@@ -1,5 +1,5 @@
 ---
-title: "3. Persisting events to S3 bucket"
+title: "4. Persisting events to S3 bucket"
 chapter: true
 weight: 4
 ---

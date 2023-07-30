@@ -80,7 +80,7 @@ Once you have updated all the values successfully, press the **Escape(esc)** key
 Press `:wq!` to save and exit the file.
 
 To confirm that you have made all the changes properly, enter the file again using the command `vi application.properties` \
-Verify the changes and press `:q!` to exit the file without making any changes. \
+Verify the changes and press `:q!` to exit the file without making any changes. 
 
 ### Build and run the Administration application
 Navigate back to the root of the _solace-quoteengine-admin_ application using the following command : `cd ../../../` \

@@ -28,7 +28,7 @@ The SEMP API is used for configuration activities and its details are listed bel
 
 This tab lists the credentials and protocol specific host urls that must be used while connecting to the Solace broker using a supported client library. \
 We need two set of connection details as below : \
-    a. Credentials for using in the Spring Java application \
+a. **Credentials for using in the Spring Java application** \
     Navigate to the screen below as shown
 ![Console-Connect - Java Spring](/images/moduleOne/brokerconsole_connect_creds_java.png)
 Make a note of the following properties in a separate file as they will be required for the following steps:

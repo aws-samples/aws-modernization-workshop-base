@@ -67,10 +67,10 @@ Click on the button _Create Bridge and Test Connection_
 Click _Apply_
 
 - The last step is to create a subscription on the **Remote** broker for which we will be using a simple postman collection that has been provided as a part of this demo.
-As a part of the prerequisites, you will have installed Postman tool which we will be using for making SEMP API calls to the remote broker. \
+As a part of the prerequisites, you will have installed Postman tool which we will be using for making SEMP API calls to the remote broker. 
 - Download the following files and save them to a folder of your preference :
   - [Postman Environment file](/postman_collection/Solace-AWS-Demo-Env.postman_environment.json "download")
-  - [Postman Collection file](/postman_collection/Solace-AWS-Demo-Collection.postman_collection.json "download") \
+  - [Postman Collection file](/postman_collection/Solace-AWS-Demo-Collection.postman_collection.json "download") 
 - Import the above two files into Postman app.
 - Open the collection and adjust the variable **REMOTE_VPN_QUEUE_NAME** to what will be specific to you. The format of the queue name is:
   **YOUR_LOCAL_BROKER_NAME**_solace-aws-int-onprem_Queue. Replace the name of your broker in the placeholder and set it in the current and initial value of the variable.

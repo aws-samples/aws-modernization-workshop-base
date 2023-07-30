@@ -14,5 +14,4 @@ As part of this scenario, you will need the following items to be able to build 
 * Download and install Postman which is used for making REST API calls. \
   You can refer to detailed steps over here : [Download and install Postman](https://www.postman.com/downloads/)
 * A SSH client of your choice which will be used to connect to the EC2 instance
-* Verify access to the Github repository : [Solace-AWS-Integration](https://github.com/SolaceLabs/solace-aws-integration) \
-  If you prefer, fork it to your personal Github account so that you can work off your personal fork without impacting others.
+* Verify access to the Github repository : [Solace-AWS-Integration](https://github.com/SolaceLabs/solace-aws-integration) 
