@@ -26,7 +26,7 @@ The following links are your go-to resource for markdown and shortcode reference
 * Using Font Awesome Emoji's <i class="fas fa-heart"></i> https://learn.netlify.app/en/cont/icons/ to help your page pop <i class="fas fa-glass-cheers"></i>
 {{% /notice %}}
 
-### Adding Images and Static Media
+### Adding Images and Static Media 
 Any images and static media to be included in the workshop need to be placed in the `static/images` folder. The format to display an image is as follows: `![Alternate Text](/images/imagename.jpg)` <br>
 
 For example, the markdown for this dog is `![An adorable puppy](/images/dog.jpg)` and the image is in the `static/images` folder. <br>
