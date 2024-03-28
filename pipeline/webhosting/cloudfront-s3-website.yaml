@@ -83,7 +83,7 @@ Resources:
           S3OriginConfig:
             OriginAccessIdentity: !Join ["", ["origin-access-identity/cloudfront/", !Ref OriginAccessID]]
         ViewerCertificate:
-          AcmCertificateArn: '{{resolve:secretsmanager:Cloudfront-Distribution-Cert:SecretString}}'
+          AcmCertificateArn: '{{resolve:secretsmanager:CloudFront-Distribution-Cert:SecretString}}'
           SslSupportMethod: sni-only  
         Logging: 
           Bucket: "access-logs-modernization-workshops.s3.amazonaws.com"
