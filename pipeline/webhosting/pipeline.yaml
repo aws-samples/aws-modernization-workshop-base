@@ -27,11 +27,11 @@ Parameters:
   FullRepoURL:
     Type: String
     Description: The full url to the repo
-    Default: https://github.com/aws-samples/aws-modernization-xxxxxxxx.git  
+    Default: https://github.com/aws-samples/aws-modernization-with-  
   GitHubOwner:
     Type: String
     Description: GitHub owner name
-    Default: aws-samples  
+    Default: aws-samples
   
 Resources:
   CodeBuildServiceRole:
@@ -219,4 +219,4 @@ Resources:
 
 Outputs:
   PipelineUrl:
-    Value: !Sub https://console.aws.amazon.com/codepipeline/home?region=${AWS::Region}#/view/${Pipeline}
+    Value: !Sub https://console.aws.amazon.com/codepipeline/home?region=${AWS::Region}#/view/${Pipeline}      
