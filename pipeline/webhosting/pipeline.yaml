@@ -19,11 +19,11 @@ Parameters:
   CloudFrontDistroId:
     Type: String
     Description: CloudFront distribution ID 
-    Default: xxxxxxxx
+    Default: xxx
   GitHubRepo:
     Type: String
     Description: repo name
-    Default: aws-modernization-xxxxxxx
+    Default: aws-modernization-with-
   FullRepoURL:
     Type: String
     Description: The full url to the repo
@@ -219,4 +219,4 @@ Resources:
 
 Outputs:
   PipelineUrl:
-    Value: !Sub https://console.aws.amazon.com/codepipeline/home?region=${AWS::Region}#/view/${Pipeline}      
+    Value: !Sub https://console.aws.amazon.com/codepipeline/home?region=${AWS::Region}#/view/${Pipeline}
