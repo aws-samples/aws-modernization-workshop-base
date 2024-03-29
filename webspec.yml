@@ -16,20 +16,20 @@ phases:
       - git remote add origin $FULL_REPO_URL
       - git fetch
       - git checkout -f "$CODEBUILD_RESOLVED_SOURCE_VERSION"
-      - git submodule init
-      - git submodule update --recursive
+      - echo "Initializing and updating Git submodules..."
+      - git submodule update --init --recursive
       - gem install asciidoctor
       - echo Install Hugo
-      - wget https://github.com/gohugoio/hugo/releases/download/v0.71.0/hugo_extended_0.71.0_Linux-64bit.tar.gz -O hugo_extended_0.71.0_Linux-64bit.tar.gz
-      - HUGO_TAR="$(find . -name "*Linux-64bit.tar.gz")"
-      - tar -xzf $HUGO_TAR
-      - chmod +x hugo
-
+      - wget https://github.com/gohugoio/hugo/releases/download/v0.71.0/hugo_extended_0.71.0_Linux-64bit.tar.gz
+      - tar -xzf hugo_extended_0.71.0_Linux-64bit.tar.gz
+      - mv hugo /usr/local/bin/hugo
+      - hugo version
   build:
     commands:
       - echo Build Website
-      - ./hugo -D -d public
+      - echo "Checking theme directory:"
+      - ls -al themes/
+      - hugo -D -d public
       - echo Deploy Copy Website to S3 Bucket
       - aws s3 sync public/ s3://${WEB_SITE_BUCKET}/ --delete
       - aws cloudfront create-invalidation --distribution-id ${CLOUDFRONT_DISTRO_ID} --paths /\*
-      
