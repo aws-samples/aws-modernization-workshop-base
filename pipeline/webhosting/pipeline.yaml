@@ -18,8 +18,8 @@ Parameters:
     Default: xxxxxx.awsworkshop.io
   CloudFrontDistroId:
     Type: String
-    Description: CloudFront distribution ID 
-    Default: E129K8O9UGD45B
+    Description: CloudFront distribution ID
+    Default: xxx
   GitHubRepo:
     Type: String
     Description: repo name
