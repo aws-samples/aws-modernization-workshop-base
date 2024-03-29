@@ -28,6 +28,7 @@ phases:
     commands:
       - echo Build Website
       - echo "Checking theme directory:"
+      - pwd
       - ls -al themes/
       - hugo -D -d public
       - echo Deploy Copy Website to S3 Bucket
