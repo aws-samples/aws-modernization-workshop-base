@@ -1,92 +1,222 @@
-#!/bin/bash
+AWSTemplateFormatVersion: "2010-09-09"
+Description: This template will launch the Modernization Workshop CI/CD Pipeline.
 
-echo "Please ensure you have set up the temporary credentials from the apn-modern-workshop-group Isengard account in your command terminal."
+# It should only be necessary to update the parameters
+# run this stack as below but sub for {WORKSHOP NAME} with the workshop/company name and set the value
+# of CloudFrontDistroId resulting from the S3 + CloudFront CloudFormation template.
 
-cd aws-modernization-with-snyk-sentinelone/pipeline/webhosting/
-# Prompt the user to verify they are in the correct directory
-echo "Ensure you are in the correct directory within the new repository where the CloudFormation templates are located."
-read -p "Press Enter to continue if you are in the correct directory, or Ctrl+C to abort and navigate to the correct directory..."
+# aws cloudformation create-stack --stack-name {WORKSHOP NAME}-Website-Pipeline --template-body file://pipeline.yaml --capabilities CAPABILITY_NAMED_IAM
 
-# Automatically set the AWS region
-export AWS_REGION=us-west-2
-echo "AWS region set to $AWS_REGION."
+Parameters:
+  ProjectName:
+    Type: String
+    Description: Project Name
+    Default: xxxxxx
+  WebsiteBucket:
+    Type: String
+    Description: Website S3 bucket name
+    Default: xxxxxx.awsworkshop.io
+  CloudFrontDistroId:
+    Type: String
+    Description: CloudFront distribution ID 
+    Default: E129K8O9UGD45B
+  GitHubRepo:
+    Type: String
+    Description: repo name
+    Default: aws-modernization-with-xxxxxx
+  FullRepoURL:
+    Type: String
+    Description: The full url to the repo
+    Default: https://github.com/aws-samples/aws-modernization-with-xxxxxx
+  GitHubOwner:
+    Type: String
+    Description: GitHub owner name
+    Default: aws-samples
+  
+Resources:
+  CodeBuildServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Path: /
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: codebuild.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: CodeBuildService
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Resource: 
+                  - !Sub 'arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/${ProjectName}-Workshop-website*'
+                Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+              - Resource: !Sub arn:aws:s3:::${ArtifactBucket}/*
+                Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:PutObject
+                  - s3:GetObjectVersion
+              - Resource: 
+                  - !Sub arn:aws:s3:::${WebsiteBucket}/*
+                  - !Sub arn:aws:s3:::${WebsiteBucket}
+                Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:PutObject
+                  - s3:GetObjectVersion
+                  - s3:ListBucket
+                  - S3:DeleteObject
+                  - S3:DeleteObjectVersion
+              - Effect: Allow
+                Action:
+                  - cloudfront:CreateInvalidation
+                Resource: !Sub arn:aws:cloudfront::${AWS::AccountId}:distribution/${CloudFrontDistroId}
 
-# Step 1: Get the workshop hostname and inform about the URL naming
-echo "The name you enter for the workshop hostname will form the URL of the workshop."
-echo "For example, entering 'my-workshop' will create the URL 'my-workshop.awsworkshop.io'."
-read -p "Enter your workshop hostname (1-20 characters, no uppercase): " workshop_hostname
+  CodePipelineServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Path: /
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: codepipeline.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: CodePipelineService
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Resource:
+                  - !Sub arn:aws:s3:::${ArtifactBucket}/*
+                Effect: Allow
+                Action:
+                  - s3:PutObject
+                  - s3:GetObject
+                  - s3:GetObjectVersion
+                  - s3:GetBucketVersioning
+              - Resource: 
+                  - !Sub 'arn:aws:codebuild:${AWS::Region}:${AWS::AccountId}:project/${ProjectName}-Workshop-website'
+                Effect: Allow
+                Action:
+                  - codebuild:StartBuild
+                  - codebuild:BatchGetBuilds
 
-# Validate hostname length and character set
-if [[ ! "$workshop_hostname" =~ ^[a-z0-9-]{1,20}$ ]] || [[ "$workshop_hostname" =~ ^-.* ]] || [[ "$workshop_hostname" =~ .*$- ]]; then
-    echo "Hostname must be 1-20 lowercase alphanumeric characters, may contain hyphens but not start or end with them."
-    exit 1
-fi
+  ArtifactBucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Delete
+    Properties:
+      VersioningConfiguration:
+        Status: Enabled 
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: 'AES256'
 
-# Replace the WorkshopHostname in the cloudfront-s3-website.yaml file
-sed -i '' "s/xxxxxxxx/$workshop_hostname/g" cloudfront-s3-website.yaml || { echo "Error updating cloudfront-s3-website.yaml."; exit 1; }
+  ArtifactBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref 'ArtifactBucket'
+      PolicyDocument:
+        Statement:
+        - Action: 's3:*'  
+          Effect: Deny
+          Resource: 
+            - !Join ['', ['arn:aws:s3:::', !Ref 'ArtifactBucket', /*]]
+            - !Join ['', ['arn:aws:s3:::', !Ref 'ArtifactBucket']]
+          Principal: '*'
+          Condition:
+            Bool:
+              aws:SecureTransport: false
 
-# Set the stack name for CloudFront and S3 based on the workshop hostname
-cloudfront_stack_name="${workshop_hostname}-Workshop"
+  CodeBuildProject:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      Artifacts:
+        Type: CODEPIPELINE
+      Source:
+        Type: CODEPIPELINE
+        BuildSpec: webspec.yml
+      Environment:
+        ComputeType: BUILD_GENERAL1_SMALL
+        Image: aws/codebuild/standard:2.0
+        Type: LINUX_CONTAINER
+        EnvironmentVariables:
+          - Name: AWS_DEFAULT_REGION
+            Value: !Ref AWS::Region
+          - Name: FULL_REPO_URL
+            Value: !Ref FullRepoURL
+          - Name: WEB_SITE_BUCKET
+            Value: !Ref WebsiteBucket
+          - Name: CLOUDFRONT_DISTRO_ID
+            Value: !Ref CloudFrontDistroId
+        PrivilegedMode: true
+      Name: !Join ['', [!Ref 'ProjectName', '-Workshop-website']]
+      ServiceRole: !Ref CodeBuildServiceRole
+                     
+  Pipeline:
+    Type: AWS::CodePipeline::Pipeline
+    Properties:
+      RoleArn: !GetAtt CodePipelineServiceRole.Arn
+      ArtifactStore:
+        Type: S3
+        Location: !Ref ArtifactBucket
+      Stages:
+        - Name: Source
+          Actions:
+            - Name: Source
+              ActionTypeId:
+                Category: Source
+                Owner: ThirdParty
+                Version: '1'
+                Provider: GitHub
+              Configuration:
+                Owner: !Ref GitHubOwner
+                Repo: !Ref GitHubRepo
+                Branch: main
+                PollForSourceChanges: false
+                OAuthToken: '{{resolve:secretsmanager:GitHub/WorkshopOwnerToken:SecretString:OwnerToken}}'
+              OutputArtifacts:
+                - Name: SourceCode
+              RunOrder: 1
+        - Name: Build
+          Actions:
+            - Name: Build
+              ActionTypeId:
+                Category: Build
+                Owner: AWS
+                Version: '1'
+                Provider: CodeBuild
+              Configuration:
+                ProjectName: !Ref CodeBuildProject
+              InputArtifacts:
+                - Name: SourceCode
+              OutputArtifacts:
+                - Name: BuildOutput
+              RunOrder: 1
+    
+  GithubWebhook:
+    Type: 'AWS::CodePipeline::Webhook'
+    Properties:
+      Authentication: GITHUB_HMAC
+      AuthenticationConfiguration:
+        SecretToken: '{{resolve:secretsmanager:GitHub/WorkshopOwnerToken:SecretString:OwnerToken}}'
+      RegisterWithThirdParty: true
+      Filters:
+      - JsonPath: "$.ref"
+        MatchEquals: refs/heads/{Branch}
+      TargetPipeline: !Ref Pipeline
+      TargetAction: Source
+      TargetPipelineVersion: !GetAtt Pipeline.Version
 
-echo "Creating CloudFront and S3 stack with name $cloudfront_stack_name..."
-if ! aws cloudformation create-stack --stack-name "$cloudfront_stack_name" --template-body file://cloudfront-s3-website.yaml --enable-termination-protection; then
-    echo "Error creating CloudFront and S3 stack."
-    exit 1
-fi
-
-# Check the status of the CloudFormation stack until it is complete or has failed
-echo "Checking the status of the stack. This may take a few minutes..."
-while :; do
-    stack_status=$(aws cloudformation describe-stacks --stack-name "$cloudfront_stack_name" --query "Stacks[0].StackStatus" --output text)
-    if [[ $stack_status == "CREATE_COMPLETE" ]]; then
-        echo "Stack $cloudfront_stack_name has been created successfully."
-        break
-    elif [[ $stack_status == "CREATE_FAILED" ]]; then
-        echo "Stack creation failed for $cloudfront_stack_name."
-        exit 1
-    else
-        echo "Current status of $cloudfront_stack_name: $stack_status"
-        sleep 30
-    fi
-done
-
-# Step 2: Retrieve the CloudFront Distribution ID
-echo "Retrieving CloudFront Distribution ID..."
-distribution_id=$(aws cloudformation describe-stacks --stack-name "$cloudfront_stack_name" --query "Stacks[0].Outputs[?OutputKey=='CloudFrontDistroId'].OutputValue" --output text) || { echo "Error retrieving CloudFront Distribution ID."; exit 1; }
-
-echo "CloudFront Distribution ID: $distribution_id"
-
-# Step 3: Modify pipeline.yaml and create the CodePipeline stack
-# Update the pipeline.yaml file with the necessary parameters
-sed -i '' "s/xxxxxxxx/$workshop_hostname/g" pipeline.yaml || { echo "Error updating pipeline.yaml."; exit 1; }
-sed -i '' "s/xxxxxxxx.awsworkshop.io/$workshop_hostname.awsworkshop.io/g" pipeline.yaml || { echo "Error updating pipeline.yaml."; exit 1; }
-sed -i '' "s/xxx/$distribution_id/g" pipeline.yaml || { echo "Error updating pipeline.yaml."; exit 1; }
-sed -i '' "s/aws-modernization-with-$/aws-modernization-with-$workshop_hostname/g" pipeline.yaml || { echo "Error updating pipeline.yaml."; exit 1; }
-sed -i '' "s|https://github.com/aws-samples/aws-modernization-with-|https://github.com/aws-samples/aws-modernization-with-$workshop_hostname.git|g" pipeline.yaml || { echo "Error updating pipeline.yaml."; exit 1; }
-
-# Set the stack name for the pipeline based on the workshop hostname
-pipeline_stack_name="${workshop_hostname}-Pipeline"
-
-echo "Creating CodePipeline stack with name $pipeline_stack_name..."
-if ! aws cloudformation create-stack --stack-name "$pipeline_stack_name" --template-body file://pipeline.yaml --capabilities CAPABILITY_NAMED_IAM --enable-termination-protection; then
-    echo "Error creating CodePipeline stack."
-    exit 1
-fi
-
-# Check the status of the CloudFormation stack until it is complete or has failed
-echo "Checking the status of the stack. This can take up to 20 minutes for the website to become available..."
-while :; do
-    stack_status=$(aws cloudformation describe-stacks --stack-name "$pipeline_stack_name" --query "Stacks[0].StackStatus" --output text)
-    if [[ $stack_status == "CREATE_COMPLETE" ]]; then
-        echo "Stack $pipeline_stack_name has been created successfully."
-        break
-    elif [[ $stack_status == "CREATE_FAILED" ]]; then
-        echo "Stack creation failed for $pipeline_stack_name."
-        exit 1
-    else
-        echo "Current status of $pipeline_stack_name: $stack_status"
-        sleep 30
-    fi
-done
-
-echo "Setup complete. Check the CloudFront distribution full domain in the AWS Management Console."
+Outputs:
+  PipelineUrl:
+    Value: !Sub https://console.aws.amazon.com/codepipeline/home?region=${AWS::Region}#/view/${Pipeline}  
