@@ -29,7 +29,7 @@ phases:
       - echo Build Website
       - echo "Checking theme directory:"
       - pwd
-      - ls -al themes/
+      - ls -lar
       - hugo -D -d public
       - echo Deploy Copy Website to S3 Bucket
       - aws s3 sync public/ s3://${WEB_SITE_BUCKET}/ --delete
