@@ -11,27 +11,27 @@ Parameters:
   ProjectName:
     Type: String
     Description: Project Name
-    Default: xxxxxxxx
+    Default: xxxxxx
   WebsiteBucket:
     Type: String
     Description: Website S3 bucket name
-    Default: xxxxxxxx.awsworkshop.io 
+    Default: xxxxxx.awsworkshop.io
   CloudFrontDistroId:
     Type: String
-    Description: CloudFront distribution ID 
-    Default: xxxxxxxx
+    Description: CloudFront distribution ID
+    Default: XXX
   GitHubRepo:
     Type: String
     Description: repo name
-    Default: aws-modernization-xxxxxxx
+    Default: aws-modernization-with-xxxxxx
   FullRepoURL:
     Type: String
     Description: The full url to the repo
-    Default: https://github.com/aws-samples/aws-modernization-xxxxxxxx.git  
+    Default: https://github.com/aws-samples/aws-modernization-with-xxxxxx.git
   GitHubOwner:
     Type: String
     Description: GitHub owner name
-    Default: aws-samples  
+    Default: aws-samples
   
 Resources:
   CodeBuildServiceRole:
@@ -219,4 +219,4 @@ Resources:
 
 Outputs:
   PipelineUrl:
-    Value: !Sub https://console.aws.amazon.com/codepipeline/home?region=${AWS::Region}#/view/${Pipeline}      
+    Value: !Sub https://console.aws.amazon.com/codepipeline/home?region=${AWS::Region}#/view/${Pipeline}  

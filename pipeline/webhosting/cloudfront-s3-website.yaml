@@ -3,7 +3,7 @@ Description: Creates an S3 bucket and CloudFront Distribution using Origins Acce
 Parameters:
   WorkshopHostname:
     Type: String
-    Default: xxxxxxxx
+    Default: xxxxxx
     Description: The hostname of the workshop
     AllowedPattern: (?!-)[a-zA-Z0-9-.]{1,20}(?<!-)
     ConstraintDescription: must be a valid DNS name.
@@ -13,11 +13,6 @@ Parameters:
     Description: The DNS name of an existing Amazon Route 53 hosted zone 
     AllowedPattern: (?!-)[a-zA-Z0-9-.]{1,63}(?<!-)
     ConstraintDescription: must be a valid DNS zone name.
-  CertificateArn:
-    Type: String
-    Default:  arn:aws:acm:us-east-1:497025854095:certificate/491991ad-c0b4-4793-98a1-dee54cc3a095
-    Description: ARN of a certificate in us-east-1 as its needed for a CloudFront Distribution
-    AllowedPattern: "arn:aws:acm:.*"
   OriginAccessID:
     Type: String
     Default: E23ZJHO0JEB5ON
@@ -88,7 +83,7 @@ Resources:
           S3OriginConfig:
             OriginAccessIdentity: !Join ["", ["origin-access-identity/cloudfront/", !Ref OriginAccessID]]
         ViewerCertificate:
-          AcmCertificateArn: !Ref CertificateArn
+          AcmCertificateArn: '{{resolve:secretsmanager:CloudFront-Distribution-Cert:SecretString}}'
           SslSupportMethod: sni-only  
         Logging: 
           Bucket: "access-logs-modernization-workshops.s3.amazonaws.com"
