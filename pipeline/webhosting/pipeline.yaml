@@ -23,11 +23,11 @@ Parameters:
   GitHubRepo:
     Type: String
     Description: GitHub repository name
-    Default: aws-modernization-with-xxxxxx
+    Default: aws-modernization-with-xXx
   FullRepoURL:
     Type: String
     Description: The full URL to the repo
-    Default: https://github.com/aws-samples/aws-modernization-with-xxxxxx.git
+    Default: https://github.com/aws-samples/aws-modernization-with-xXx.git
   GitHubOwner:
     Type: String
     Description: GitHub owner name
