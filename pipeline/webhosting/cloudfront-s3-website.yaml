@@ -50,7 +50,9 @@ Resources:
           Principal: '*'
           Condition:
             Bool:
-              aws:SecureTransport: false 
+              aws:SecureTransport: false
+    DependsOn: WebsiteBucket
+          
 
   WebsiteCloudFront:
     Type: AWS::CloudFront::Distribution
@@ -73,7 +75,7 @@ Resources:
           ViewerProtocolPolicy: "redirect-to-https"
           LambdaFunctionAssociations:
             - EventType: origin-request
-              LambdaFunctionARN: arn:aws:lambda:us-east-1:497025854095:function:cloudfrontRedirectEEIndex:2
+              LambdaFunctionARN: arn:aws:lambda:us-east-1:${AWS::AccountId}:function:cloudfrontRedirectEEIndex:2
         DefaultRootObject: index.html
         Enabled: true
         HttpVersion: 'http2'
@@ -84,10 +86,11 @@ Resources:
             OriginAccessIdentity: !Join ["", ["origin-access-identity/cloudfront/", !Ref OriginAccessID]]
         ViewerCertificate:
           AcmCertificateArn: '{{resolve:secretsmanager:CloudFront-Distribution-Cert:SecretString}}'
-          SslSupportMethod: sni-only  
+          SslSupportMethod: sni-only
         Logging: 
           Bucket: "access-logs-modernization-workshops.s3.amazonaws.com"
           Prefix: !Join ['', [ !Ref 'WorkshopHostname', '/']]
+    DependsOn: WebsiteBucket   
         
   WebsiteDNSName:
     Type: AWS::Route53::RecordSet
@@ -98,6 +101,7 @@ Resources:
       HostedZoneName: !Join ['', [!Ref 'DomainName', '.']]
       Name: !Join ['', [ !Ref 'WorkshopHostname', '.', !Ref 'DomainName']]
       Type: "A"
+    DependsOn: WebsiteCloudFront
         
 Outputs:
   BucketName:
