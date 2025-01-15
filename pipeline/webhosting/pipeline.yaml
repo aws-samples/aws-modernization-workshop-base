@@ -1,9 +1,9 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description: This template will launch the Modernization Workshop CI/CD Pipeline.
 
-# It should only be necessary to update the parameters
-# run this stack as below but sub for {WORKSHOP NAME} with the workshop/company name and set the value
-# of CloudFrontDistroId resulting from the S3 + CloudFront CloudFormation template.
+# It should only be necessary to update the parameters	
+# run this stack as below but sub for {WORKSHOP NAME} with the workshop/company name and set the value	
+# of CloudFrontDistroId resulting from the S3 + CloudFront CloudFormation template.	
 
 # aws cloudformation create-stack --stack-name {WORKSHOP NAME}-Website-Pipeline --template-body file://pipeline.yaml --capabilities CAPABILITY_NAMED_IAM
 
@@ -22,17 +22,17 @@ Parameters:
     Default: XXX
   GitHubRepo:
     Type: String
-    Description: repo name
-    Default: aws-modernization-with-xxxxxx
+    Description: GitHub repository name
+    Default: aws-modernization-with-xXx
   FullRepoURL:
     Type: String
-    Description: The full url to the repo
-    Default: https://github.com/aws-samples/aws-modernization-with-xxxxxx.git
+    Description: The full URL to the repo
+    Default: https://github.com/aws-samples/aws-modernization-with-xXx.git
   GitHubOwner:
     Type: String
     Description: GitHub owner name
     Default: aws-samples
-  
+
 Resources:
   CodeBuildServiceRole:
     Type: AWS::IAM::Role
@@ -72,8 +72,8 @@ Resources:
                   - s3:PutObject
                   - s3:GetObjectVersion
                   - s3:ListBucket
-                  - S3:DeleteObject
-                  - S3:DeleteObjectVersion
+                  - s3:DeleteObject
+                  - s3:DeleteObjectVersion
               - Effect: Allow
                 Action:
                   - cloudfront:CreateInvalidation
@@ -182,8 +182,8 @@ Resources:
                 Owner: !Ref GitHubOwner
                 Repo: !Ref GitHubRepo
                 Branch: main
-                PollForSourceChanges: false
                 OAuthToken: '{{resolve:secretsmanager:GitHub/WorkshopOwnerToken:SecretString:OwnerToken}}'
+                PollForSourceChanges: false
               OutputArtifacts:
                 - Name: SourceCode
               RunOrder: 1
@@ -202,8 +202,8 @@ Resources:
               OutputArtifacts:
                 - Name: BuildOutput
               RunOrder: 1
-    
-  GithubWebhook:
+
+  GitHubWebhook:
     Type: 'AWS::CodePipeline::Webhook'
     Properties:
       Authentication: GITHUB_HMAC
@@ -219,4 +219,4 @@ Resources:
 
 Outputs:
   PipelineUrl:
-    Value: !Sub https://console.aws.amazon.com/codepipeline/home?region=${AWS::Region}#/view/${Pipeline}  
+    Value: !Sub https://console.aws.amazon.com/codepipeline/home?region=${AWS::Region}#/view/${Pipeline}

@@ -3,7 +3,7 @@ Description: Creates an S3 bucket and CloudFront Distribution using Origins Acce
 Parameters:
   WorkshopHostname:
     Type: String
-    Default: xxxxxx
+    Default: xXx
     Description: The hostname of the workshop
     AllowedPattern: (?!-)[a-zA-Z0-9-.]{1,20}(?<!-)
     ConstraintDescription: must be a valid DNS name.

@@ -44,10 +44,10 @@ This is a base workshop. Clone and start from this repo to create your workshop.
 
 Contributors names and contact info
 
+* Patrick Vassell (@pjv) 
 * James Bland (@jamesbland123)
-* Parker Perry (@parkerperry)  
-* James Spencer (@folrig)
 * Eugene Mu (@eugenemu)
+
 
 ## License
 
