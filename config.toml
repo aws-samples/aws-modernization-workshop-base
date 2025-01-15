@@ -1,7 +1,6 @@
 baseURL = "/"
 languageCode = "en-US"
-defaultContentLanguage = "en" # Modify to change the default language/version of the site
-
+defaultContentLanguage = "en"
 title = "AWS Modernization Workshop Sample"
 theme = "hugo-theme-learn"
 metaDataFormat = "yaml"
@@ -15,7 +14,7 @@ enableEmoji = true
   # See the config.toml file from this documentation site to have an example.
   #editURL = ""
   # Author of the site, will be used in meta information
-  author = "James Bland"
+  author = "Patrick Vassell"
   # Description of the site, will be used in meta information
   description = "AWS Modernization Workshop"
   # Shows a checkmark for visited pages on the menu
@@ -39,10 +38,24 @@ enableEmoji = true
   ordersectionsby = "weight"
   # Change default color scheme with a variant one. Can be "red", "blue", "green".
   themeVariant = "mine"
-
+  # Add this line to ignore HTML warnings
+  ignoreLogs = ['warning-goldmark-raw-html']
 
 [outputs]
 home = [ "HTML", "RSS", "JSON"]
+
+[markup]
+  defaultMarkdownHandler = "goldmark"
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+[Languages]
+[Languages.en]
+title = "English"
+weight = 1
+languageName = "English"
+
 
 [[menu.shortcuts]] 
 name = "<i class='fas fa-graduation-cap'></i> Modernization Workshops"
@@ -73,17 +86,3 @@ weight = 22
 name = "<i class='fas fa-chalkboard-teacher'></i> App Mesh Workshop"
 url = "https://www.appmeshworkshop.com/"
 weight = 23
-
-[markup]
-  defaultMarkdownHandler = "goldmark"
-
-[Languages] # Modify to change the language/version settings and/or version secondary extensions
-[Languages.en]
-title = "English"
-weight = 1
-languageName = "English"
-
-[Languages.ee]
-title = "Event Engine Setup"
-weight = 2
-languageName = "Event Engine Setup"
