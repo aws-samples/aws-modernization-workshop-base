@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.140.2">
+    <meta name="description" content="AWS Modernization Workshop">
+<meta name="author" content="Patrick Vassell">
+
+    <link rel="icon" href="https://awsmedia.s3.amazonaws.com/favicon.ico" type="image/x-icon" />
+
+    <title>Configure workshop specific requirements :: English</title>
+
+    
+    <link href="/css/nucleus.css?1738254659" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1738254659" rel="stylesheet">
+    <link href="/css/hybrid.css?1738254659" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1738254659" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1738254659" rel="stylesheet">
+    <link href="/css/auto-complete.css?1738254659" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1738254659" rel="stylesheet">
+    <link href="/css/theme.css?1738254659" rel="stylesheet">
+    <link href="/css/tabs.css?1738254659" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1738254659" rel="stylesheet">
+    
+    <link href="/css/theme-mine.css?1738254659" rel="stylesheet">
+    
+    
+
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/2_moduletwo_setup/25_configureworkshopspecificrequirements.html">
+    <nav id="sidebar" class="showVisitedLinks">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a href="/" title="Go home"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 30" width="50%" style="padding:20px 0px;"><defs><style>.cls-1{fill:#fff;}.cls-2{fill:#f90;fill-rule:evenodd;}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09,10.85a4.7,4.7,0,0,0,.19,1.48,7.73,7.73,0,0,0,.54,1.19.77.77,0,0,1,.12.38.64.64,0,0,1-.32.49l-1,.7a.83.83,0,0,1-.44.15.69.69,0,0,1-.49-.23,3.8,3.8,0,0,1-.6-.77q-.25-.42-.51-1a6.14,6.14,0,0,1-4.89,2.3,4.54,4.54,0,0,1-3.32-1.19,4.27,4.27,0,0,1-1.22-3.2A4.28,4.28,0,0,1,3.61,7.75,6.06,6.06,0,0,1,7.69,6.46a12.47,12.47,0,0,1,1.76.13q.92.13,1.91.36V5.73a3.65,3.65,0,0,0-.79-2.66A3.81,3.81,0,0,0,7.86,2.3a7.71,7.71,0,0,0-1.79.22,12.78,12.78,0,0,0-1.79.57,4.55,4.55,0,0,1-.58.22l-.26,0q-.35,0-.35-.52V2a1.09,1.09,0,0,1,.12-.58,1.2,1.2,0,0,1,.47-.35A10.88,10.88,0,0,1,5.77.32,10.19,10.19,0,0,1,8.36,0a6,6,0,0,1,4.35,1.35,5.49,5.49,0,0,1,1.38,4.09ZM7.34,13.38a5.36,5.36,0,0,0,1.72-.31A3.63,3.63,0,0,0,10.63,12,2.62,2.62,0,0,0,11.19,11a5.63,5.63,0,0,0,.16-1.44v-.7a14.35,14.35,0,0,0-1.53-.28,12.37,12.37,0,0,0-1.56-.1,3.84,3.84,0,0,0-2.47.67A2.34,2.34,0,0,0,5,11a2.35,2.35,0,0,0,.61,1.76A2.4,2.4,0,0,0,7.34,13.38Zm13.35,1.8a1,1,0,0,1-.64-.16,1.3,1.3,0,0,1-.35-.65L15.81,1.51a3,3,0,0,1-.15-.67.36.36,0,0,1,.41-.41H17.7a1,1,0,0,1,.65.16,1.4,1.4,0,0,1,.33.65l2.79,11,2.59-11A1.17,1.17,0,0,1,24.39.6a1.1,1.1,0,0,1,.67-.16H26.4a1.1,1.1,0,0,1,.67.16,1.17,1.17,0,0,1,.32.65L30,12.39,32.88,1.25A1.39,1.39,0,0,1,33.22.6a1,1,0,0,1,.65-.16h1.54a.36.36,0,0,1,.41.41,1.36,1.36,0,0,1,0,.26,3.64,3.64,0,0,1-.12.41l-4,12.86a1.3,1.3,0,0,1-.35.65,1,1,0,0,1-.64.16H29.25a1,1,0,0,1-.67-.17,1.26,1.26,0,0,1-.32-.67L25.67,3.64,23.11,14.34a1.26,1.26,0,0,1-.32.67,1,1,0,0,1-.67.17Zm21.36.44a11.28,11.28,0,0,1-2.56-.29,7.44,7.44,0,0,1-1.92-.67,1,1,0,0,1-.61-.93v-.84q0-.52.38-.52a.9.9,0,0,1,.31.06l.42.17a8.77,8.77,0,0,0,1.83.58,9.78,9.78,0,0,0,2,.2,4.48,4.48,0,0,0,2.43-.55,1.76,1.76,0,0,0,.86-1.57,1.61,1.61,0,0,0-.45-1.16A4.29,4.29,0,0,0,43,9.22l-2.41-.76A5.15,5.15,0,0,1,38,6.78a3.94,3.94,0,0,1-.83-2.41,3.7,3.7,0,0,1,.45-1.85,4.47,4.47,0,0,1,1.19-1.37A5.27,5.27,0,0,1,40.51.29,7.4,7.4,0,0,1,42.6,0a8.87,8.87,0,0,1,1.12.07q.57.07,1.08.19t.95.26a4.27,4.27,0,0,1,.7.29,1.59,1.59,0,0,1,.49.41.94.94,0,0,1,.15.55v.79q0,.52-.38.52a1.76,1.76,0,0,1-.64-.2,7.74,7.74,0,0,0-3.2-.64,4.37,4.37,0,0,0-2.21.47,1.6,1.6,0,0,0-.79,1.48,1.58,1.58,0,0,0,.49,1.18,4.94,4.94,0,0,0,1.83.92L44.55,7a5.08,5.08,0,0,1,2.57,1.6A3.76,3.76,0,0,1,47.9,11a4.21,4.21,0,0,1-.44,1.93,4.4,4.4,0,0,1-1.21,1.47,5.43,5.43,0,0,1-1.85.93A8.25,8.25,0,0,1,42.05,15.62Z"></path><path class="cls-2" d="M45.19,23.81C39.72,27.85,31.78,30,25,30A36.64,36.64,0,0,1,.22,20.57c-.51-.46-.06-1.09.56-.74A49.78,49.78,0,0,0,25.53,26.4,49.23,49.23,0,0,0,44.4,22.53C45.32,22.14,46.1,23.14,45.19,23.81Z"></path><path class="cls-2" d="M47.47,21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74,3.13-2.2,8.27-1.57,8.86-.83s-.16,5.89-3.09,8.35c-.45.38-.88.18-.68-.32C46.69,25.8,48.17,22.11,47.47,21.21Z"></path></svg></a>
+  
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1738254659"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1738254659"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/\/localhost:1313\/";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1738254659"></script>
+
+    
+  </div>
+  
+    <section id="homelinks">
+      <ul>
+        <li>
+            <a class="padding" href='/'><i class='fas fa-home'></i> Home</a>
+        </li>
+      </ul>
+    </section>
+  
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/1_moduleone.html" title="Introduction" class="dd-item
+        
+        
+        
+        ">
+      <a href="/1_moduleone.html">
+          Introduction
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/1_moduleone/11_foreword.html" title="Foreword" class="dd-item ">
+        <a href="/1_moduleone/11_foreword.html">
+        Foreword
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/1_moduleone/12_technicalissue_problem.html" title="Technical Issue / Problem" class="dd-item ">
+        <a href="/1_moduleone/12_technicalissue_problem.html">
+        Technical Issue / Problem
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/1_moduleone/13_whoweare.html" title="Who We Are" class="dd-item ">
+        <a href="/1_moduleone/13_whoweare.html">
+        Who We Are
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/1_moduleone/14_workshopprerequisites.html" title="Workshop Prerequisites" class="dd-item ">
+        <a href="/1_moduleone/14_workshopprerequisites.html">
+        Workshop Prerequisites
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/1_moduleone/15_nextsteps.html" title="Workshop Next Steps" class="dd-item ">
+        <a href="/1_moduleone/15_nextsteps.html">
+        Workshop Next Steps
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/2_moduletwo_setup.html" title="Self-Guided Workshop Setup" class="dd-item
+        parent
+        
+        
+        ">
+      <a href="/2_moduletwo_setup.html">
+          Self-Guided Workshop Setup
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/2_moduletwo_setup/21_awsaccountsetup.html" title="Self-Guided Setup Instructions" class="dd-item ">
+        <a href="/2_moduletwo_setup/21_awsaccountsetup.html">
+        Self-Guided Setup Instructions
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/2_moduletwo_setup/21_awsworkshopstudio.html" title="At an AWS Guided Event" class="dd-item ">
+        <a href="/2_moduletwo_setup/21_awsworkshopstudio.html">
+        At an AWS Guided Event
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/2_moduletwo_setup/22_createaworkspace.html" title="Create a Workspace" class="dd-item ">
+        <a href="/2_moduletwo_setup/22_createaworkspace.html">
+        Create a Workspace
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/2_moduletwo_setup/23_createaniamroleforyourworkspace.html" title="Create an IAM Role for your workspace" class="dd-item ">
+        <a href="/2_moduletwo_setup/23_createaniamroleforyourworkspace.html">
+        Create an IAM Role for your workspace
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/2_moduletwo_setup/24_attachiamrole.html" title="Attach IAM Role" class="dd-item ">
+        <a href="/2_moduletwo_setup/24_attachiamrole.html">
+        Attach IAM Role
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/2_moduletwo_setup/25_configureworkshopspecificrequirements.html" title="Configure workshop specific requirements" class="dd-item active">
+        <a href="/2_moduletwo_setup/25_configureworkshopspecificrequirements.html">
+        Configure workshop specific requirements
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/3_modulethree.html" title="Partner Setup" class="dd-item
+        
+        
+        
+        ">
+      <a href="/3_modulethree.html">
+          Partner Setup
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/3_modulethree/31_partnersetup.html" title="Partner Setup Instructions" class="dd-item ">
+        <a href="/3_modulethree/31_partnersetup.html">
+        Partner Setup Instructions
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/4_modulefour.html" title="Hugo Framework and Markdown" class="dd-item
+        
+        
+        
+        ">
+      <a href="/4_modulefour.html">
+          Hugo Framework and Markdown
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+          
+        
+    </ul>
+
+    
+    
+      <section id="shortcuts">
+        <h3>More</h3>
+        <ul>
+          
+              <li>
+                  <a class="padding" href="https://awsworkshop.io"><i class='fas fa-graduation-cap'></i> Modernization Workshops</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://aws.amazon.com/builders-library/"><i class='fas fa-tools'></i> AWS Builders Library</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://aws.amazon.com/blogs/modernizing-with-aws/"><i class='far fa-lightbulb'></i> Modernization with AWS</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://eksworkshop.com/"><i class='fas fa-chalkboard-teacher'></i> EKS Workshop</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://ecsworkshop.com/"><i class='fas fa-chalkboard-teacher'></i> ECS Workshop</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://www.appmeshworkshop.com/"><i class='fas fa-chalkboard-teacher'></i> App Mesh Workshop</a>
+              </li>
+          
+        </ul>
+      </section>
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+      
+
+      
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Clear History</a></li>
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      <left>
+
+    <a href="https://aws.amazon.com/privacy/?nc1=f_pr">Privacy</a> | <a
+        href="https://aws.amazon.com/terms/?nc1=f_pr">Site Terms</a> | <a
+        href="https://modernization-workshop-bucket.s3-us-west-2.amazonaws.com/license/cc-license.html">CC BY-SA 4.0</a>
+
+</left>
+    </section>
+  </div>
+</nav>
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>AWS Modernization Workshop Base Template</a> > <a href='/2_moduletwo_setup.html'>Self-Guided Workshop Setup</a> > Configure workshop specific requirements
+          
+        
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+          <div id="chapter">
+        
+        <div id="body-inner">
+          
+
+        
+
+
+<!-- MORE SUBMODULES CAN BE ADDED TO DIVIDE UP THE SETUP INTO SMALLER SECTIONS -->
+<!-- COPY AND PASTE THIS SUBMODULE FILE, RENAME, AND CHANGE THE CONTENTS AS NECESSARY -->
+<h1 id="configuring-workshop-specific-requirements----modify-this-heading-if-necessary---">Configuring Workshop Specific Requirements <!-- MODIFY THIS HEADING IF NECESSARY --></h1>
+<h2 id="submodule-five-heading----modify-this-subheading---">Submodule Five Heading <!-- MODIFY THIS SUBHEADING --></h2>
+<p>This paragraph block can be used to explain how to configure any specific workshop requirements if necessary. Example content guidance can be found at the bottom of the page.</p>
+
+<div class="notices info" ><p style='text-align: left;'>
+**REMOVE:** With the exception of _index.md, the module folders and filenames should be changed to better reflect their content, i.e. 1_Planning as the folder and 11_HowToBegin as the first submodule. Changing the "weight" value of the header is ultimately what reflects the order the modules are presented.
+</p>
+</div>
+
+<h3 id="next-section-heading----modify-this-heading---">Next Section Heading <!-- MODIFY THIS HEADING --></h3>
+<p>This paragraph block can optionally be utilized to lead into the next section of the workshop.</p>
+<h4 id="example-content-guidance">Example Content Guidance</h4>
+<h1 id="configure-workspace----modify-this-subheading---">Configure Workspace <!-- MODIFY THIS SUBHEADING --></h1>
+<pre><code>Return to your workspace and click the gear icon (in top right corner), or click to open a new tab and choose “Open Preferences”
+
+Select AWS SETTINGS and turn off AWS managed temporary credentials
+
+Close the Preferences tab
+</code></pre>
+<p>Turn off temp credentials</p>
+<pre><code>Copy and run (paste with Ctrl+P or CMD+P) the commands below.
+</code></pre>
+<p>Before running it, review what it does by reading through the comments.</p>
+<h1 id="update-awscli">Update awscli</h1>
+<p>sudo pip install &ndash;upgrade awscli &amp;&amp; hash -r</p>
+<h1 id="install-jq-command-line-tool-for-parsing-json-and-bash-completion">Install jq command-line tool for parsing JSON, and bash-completion</h1>
+<p>sudo yum -y install jq gettext bash-completion moreutils</p>
+<h1 id="install-yq-for-yaml-processing">Install yq for yaml processing</h1>
+<p>echo &lsquo;yq() {
+docker run &ndash;rm -i -v &ldquo;${PWD}&rdquo;:/workdir mikefarah/yq yq &ldquo;$@&rdquo;
+}&rsquo; | tee -a ~/.bashrc &amp;&amp; source ~/.bashrc</p>
+<h1 id="verify-the-binaries-are-in-the-path-and-executable">Verify the binaries are in the path and executable</h1>
+<p>for command in jq aws
+do
+which $command &amp;&gt;/dev/null &amp;&amp; echo &ldquo;$command in path&rdquo; || echo &ldquo;$command NOT FOUND&rdquo;
+done</p>
+<h1 id="remove-existing-credentials-file">Remove existing credentials file.</h1>
+<p>rm -vf ${HOME}/.aws/credentials</p>
+<h1 id="set-the-account_id-and-the-region-to-work-with-our-desired-region">Set the ACCOUNT_ID and the region to work with our desired region</h1>
+<p>export AWS_REGION=$(curl -s 169.254.169.254/latest/dynamic/instance-identity/document | jq -r &lsquo;.region&rsquo;)
+test -n &ldquo;$AWS_REGION&rdquo; &amp;&amp; echo AWS_REGION is &ldquo;$AWS_REGION&rdquo; || echo AWS_REGION is not set</p>
+<h1 id="validate-that-our-iam-role-is-valid">Validate that our IAM role is valid.</h1>
+<p>aws sts get-caller-identity &ndash;query Arn | grep CircleCI-Workshop-Admin -q &amp;&amp; echo &ldquo;IAM role valid&rdquo; || echo &ldquo;IAM role NOT valid&rdquo;</p>
+<h2 id="warning-if-the-iam-role-is-not-valid-do-not-proceed-go-back-and-confirm-the-steps-on-this-page">Warning If the IAM role is not valid, DO NOT PROCEED. Go back and confirm the steps on this page.</h2>
+
+
+<footer class="footline">
+	
+</footer>
+
+        
+            </div> 
+        
+        </div>
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/2_moduletwo_setup/24_attachiamrole.html" title="Attach IAM Role"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/3_modulethree.html" title="Partner Setup" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1738254659"></script>
+    <script src="/js/perfect-scrollbar.min.js?1738254659"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1738254659"></script>
+    <script src="/js/jquery.sticky.js?1738254659"></script>
+    <script src="/js/featherlight.min.js?1738254659"></script>
+    <script src="/js/highlight.pack.js?1738254659"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/modernizr.custom-3.6.0.js?1738254659"></script>
+    <script src="/js/learn.js?1738254659"></script>
+    <script src="/js/hugo-learn.js?1738254659"></script>
+    
+        
+            <script src="/mermaid/mermaid.js?1738254659"></script>
+        
+        <script>
+            mermaid.initialize({ startOnLoad: true });
+        </script>
+    
+    
+
+  </body>
+</html>
+
