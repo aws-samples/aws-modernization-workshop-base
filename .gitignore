@@ -34,3 +34,5 @@ msbuild.wrn
 
 # Node Modules
 node_modules/
+public/
+public/
