@@ -50,7 +50,7 @@ Follow these steps to set up your local development environment:
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/[your-username]/[repository-name].git
+   git clone https://github.com/aws-samples/[repository-name].git
    cd [repository-name]
    ```
 
