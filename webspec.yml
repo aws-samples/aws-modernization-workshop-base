@@ -4,41 +4,69 @@ phases:
   install:
     commands:
       - echo "Installing Hugo..."
-      - curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep "download_url.*Linux-64bit.tar.gz" | grep -v "extended" | cut -d '"' -f 4 | wget -qi -
-      - HUGO_TAR="$(find . -name "*Linux-64bit.tar.gz")"
-      - tar -xzf $HUGO_TAR
+      - |
+        MAX_RETRIES=3
+        for i in $(seq 1 $MAX_RETRIES); do
+          echo "Attempt $i to download Hugo..."
+          curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep "download_url.*Linux-64bit.tar.gz" | grep -v "extended" | cut -d '"' -f 4 | wget -qi -
+          HUGO_TAR="$(find . -name "*Linux-64bit.tar.gz")"
+          if [ ! -z "$HUGO_TAR" ]; then
+            echo "Hugo downloaded successfully"
+            break
+          fi
+          if [ $i -eq $MAX_RETRIES ]; then
+            echo "Failed to download Hugo after $MAX_RETRIES attempts"
+            exit 1
+          fi
+          sleep 5
+        done
+      - echo "Extracting Hugo from $HUGO_TAR"
+      - tar -xzf "$HUGO_TAR"
       - chmod +x hugo
       - mv hugo /usr/local/bin/hugo
-      - hugo version
+      - hugo version || { echo "Hugo installation failed"; exit 1; }
 
   pre_build:
     commands:
+      - echo "Setting up environment variables..."
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
 
-      - echo "Initializing Git Repo"
+      - echo "Initializing Git Repo..."
       - git init
       - git remote add origin $FULL_REPO_URL
-      - git fetch
-      - git checkout -f "$CODEBUILD_RESOLVED_SOURCE_VERSION"
+      - git fetch || { echo "Git fetch failed"; exit 1; }
+      - git checkout -f "$CODEBUILD_RESOLVED_SOURCE_VERSION" || { echo "Git checkout failed"; exit 1; }
 
       - echo "Initializing and updating Git submodules..."
       - git submodule sync
-      - git submodule update --init --recursive
+      - git submodule update --init --recursive || { echo "Submodule update failed"; exit 1; }
 
       - echo "Installing dependencies..."
-      - gem install asciidoctor
+      - gem install asciidoctor || { echo "Asciidoctor installation failed"; exit 1; }
 
   build:
     commands:
       - echo "Building Website..."
-      - hugo -D -d public
+      - hugo -D -d public || { echo "Hugo build failed"; exit 1; }
 
       - echo "Deploying Website to S3..."
-      - aws s3 sync public/ s3://${WEB_SITE_BUCKET}/ --delete
+      - |
+        if aws s3 sync public/ s3://${WEB_SITE_BUCKET}/ --delete; then
+          echo "S3 sync successful"
+        else
+          echo "S3 sync failed"
+          exit 1
+        fi
 
       - echo "Invalidating CloudFront Cache..."
-      - aws cloudfront create-invalidation --distribution-id ${CLOUDFRONT_DISTRO_ID} --paths "/*"
+      - |
+        if aws cloudfront create-invalidation --distribution-id ${CLOUDFRONT_DISTRO_ID} --paths "/*"; then
+          echo "CloudFront invalidation created successfully"
+        else
+          echo "CloudFront invalidation failed"
+          exit 1
+        fi
 
   post_build:
     commands:
