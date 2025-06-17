@@ -104,8 +104,14 @@ If submodules fail to initialize or update, try these steps:
 
 By following these steps, you can resolve most common submodule issues and ensure that your workshop is correctly set up for local development.
 
-### Start the Local Hugo Server  
+### Setup the Local Hugo Server  
 Launch a local development server to preview your workshop:
+
+Hugo Server Instaall
+
+Please navigate to `https://gohugo.io/installation/` to install the latest version of Hugo
+
+Once Installed, ensure you are at the root directory of the repo, you have cloned and run this command:
 
 ```bash
 hugo server -D
