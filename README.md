@@ -109,7 +109,11 @@ Launch a local development server to preview your workshop:
 
 Hugo Server Instaall
 
-Please navigate to `https://gohugo.io/installation/` to install the latest version of Hugo
+Please navigate to:
+```bash
+https://gohugo.io/installation/
+```
+to install the latest version of Hugo
 
 Once Installed, ensure you are at the root directory of the repo, you have cloned and run this command:
 
