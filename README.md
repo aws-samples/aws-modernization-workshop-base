@@ -1,10 +1,11 @@
-# AWSWorkshop.io Base Workshop 
+# AWSWorkshop.io Base Workshop
 
 This is a base workshop. Clone and start from this repo to create your workshop.
 
 ## Versions
- * 2.0
-    * Initial Release:  
+
+* 2.0
+  * Initial Release:  
       Overhauled to add prescriptive guidance. Improved readability and ease of use by making the base more templatized.
 
 ## Description
@@ -31,13 +32,13 @@ Determining what kind of event this workshop will be presented at is also import
 
 ## Types of Events
  
-Identifying whether your workshop will be a self-paced workshop or an AWS-hosted event will be crucial in your planning as well. If it’s a self-paced workshop, then having highly contextualized sections will be very important as there won’t be anyone there to answer questions.  
+Identifying whether your workshop will be a self-paced workshop or an AWS-hosted event will be crucial in your planning as well. If it's a self-paced workshop, then having highly contextualized sections will be very important as there won't be anyone there to answer questions.  
 
 Making sure that the workshop itself has all relevant information or that clear references have been outlined for any documentation that will be needed to successfully complete the workshop is crucial to the workshop's overall success.
 
 ## Build
 
-In this section, you will be setting up your workflow, editing and building, testing your environments, and publishing the workshop if everything is prescriptive enough. Follow along to learn how to complete all of these tasks. 
+In this section, you will be setting up your workflow, editing and building, testing your environments, and publishing the workshop if everything is prescriptive enough. Follow along to learn how to complete all of these tasks.
 
 ## Viewing the Workshop Locally
 
@@ -47,14 +48,55 @@ To view and test your workshop locally before publishing, you'll need to set up 
 
 Follow these steps to set up your local development environment:
 
-1. **Clone the Repository**
+1. **Install GitHub CLI (if not already installed)**
+
+   The GitHub CLI (`gh`) makes it easy to fork and clone repositories. Install it from:
+
+   **macOS (using Homebrew):**
 
    ```bash
-   git clone https://github.com/aws-samples/[repository-name].git
-   cd [repository-name]
+   brew install gh
    ```
 
-2. **Initialize and Update Git Submodules**  
+   **Windows (using Chocolatey):**
+
+   ```bash
+   choco install gh
+   ```
+
+   **Linux (Ubuntu/Debian):**
+
+   ```bash
+   sudo apt install gh
+   ```
+
+   For other installation methods, visit: https://cli.github.com/
+
+2. **Authenticate with GitHub**
+
+   Check if you're already authenticated, or log in if needed:
+
+   ```bash
+   gh auth status || gh auth login
+   ```
+
+3. **Fork and Clone the Repository**
+
+   Fork this repository to your GitHub account and clone it locally:
+  ```bash
+  gh repo fork aws-samples/[repository-name] --clone=true
+  cd [repository-name]
+  ```
+
+   Replace [repository-name]
+   with the actual name of the workshop repository you want to work with.
+
+   This command will:
+   - Create a fork of the repository in your GitHub account
+   - Clone your fork to your local machine
+   - Set up the necessary git remotes (origin pointing to your fork, upstream to the original)
+
+4. **Initialize and Update Git Submodules**  
    The workshop uses Hugo themes as submodules. Initialize and update them with:
 
    ```bash
@@ -105,37 +147,72 @@ If submodules fail to initialize or update, try these steps:
 By following these steps, you can resolve most common submodule issues and ensure that your workshop is correctly set up for local development.
 
 ### Setup the Local Hugo Server  
-Launch a local development server to preview your workshop:
 
-Hugo Server Instaall
+5. **Install Hugo (if not already installed)**
 
-Please navigate to:
-```bash
-https://gohugo.io/installation/
-```
-to install the latest version of Hugo
+   Hugo is a static site generator that powers this workshop. Install it using your preferred method:
+   
+   **macOS (using Homebrew):**
+   ```bash
+   brew install hugo
+   ```
+   
+   **Windows (using Chocolatey):**
+   ```bash
+   choco install hugo-extended
+   ```
+   
+   **Windows (using Scoop):**
+   ```bash
+   scoop install hugo-extended
+   ```
+   
+   **Linux (Ubuntu/Debian):**
+   ```bash
+   sudo apt install hugo
+   ```
+   
+   **Linux (using Snap):**
+   ```bash
+   sudo snap install hugo
+   ```
+   
+   **Using Go (cross-platform):**
+   ```bash
+   go install github.com/gohugoio/hugo@latest
+   ```
+   
+   For other installation methods or the latest version, visit: https://gohugo.io/installation/
+   
+   **Verify Installation:**
+   ```bash
+   hugo version
+   ```
 
-Once Installed, ensure you are at the root directory of the repo, you have cloned and run this command:
+6. **Launch the Local Development Server**
 
-```bash
-hugo server -D
-```
+   Navigate to the root directory of your cloned repository and start the Hugo development server:
 
-This will start a local server at `http://localhost:1313/`, where you can view your workshop in real time. The `-D` flag ensures draft content is also displayed.
+   ```bash
+   hugo server -D
+   ```
+
+   This will start a local server at `http://localhost:1313/`, where you can view your workshop in real time. The `-D` flag ensures draft content is also displayed.
 
 ### Working with Workshop Content
 
 When making changes to your workshop content, the local server will automatically refresh to show your updates. This allows you to:
 
-- See how your markdown renders in the browser
-- Test navigation between pages
-- Verify that images and links work correctly
-- Check responsive design on different screen sizes
+* See how your markdown renders in the browser
+* Test navigation between pages
+* Verify that images and links work correctly
+* Check responsive design on different screen sizes
 
 If you encounter issues with the local preview:
-- Ensure all submodules are properly initialized
-- Try restarting the Hugo server
-- Clear your browser cache if changes aren't appearing
+
+* Ensure all submodules are properly initialized
+* Try restarting the Hugo server
+* Clear your browser cache if changes aren't appearing
 
 Remember that any changes made locally will need to be committed and pushed to the repository to be reflected in the published version of your workshop.
 
@@ -151,7 +228,7 @@ Commonly asked questions along with tools, tips, and samples that might be relev
 
 Contributors' names and contact info:
 
-* Patrick Vassell (@Vassell, Patrick) 
+* Patrick Vassell (@Vassell, Patrick)
 * James Bland (@jamesbland123)
 * Eugene Mu (@eugenemu)
 
