@@ -20,8 +20,57 @@ jobs:
     - name: Check URLs for inappropriate content
       run: |
         python3 << 'EOF'
-        import re, subprocess, sys, requests, os
+        import re, subprocess, sys, requests, os, json
         from concurrent.futures import ThreadPoolExecutor
+
+        def check_urls_with_google_safe_browsing(urls_batch):
+            """Check URLs using Google Safe Browsing API"""
+            try:
+                api_key = os.getenv('GOOGLE_SAFE_BROWSING_API_KEY')
+                if not api_key:
+                    print("⚠️  Google Safe Browsing API key not found, skipping external check")
+                    return {}
+                
+                api_url = f"https://safebrowsing.googleapis.com/v4/threatMatches:find?key={api_key}"
+                
+                payload = {
+                    "client": {
+                        "clientId": "aws-modernization-security",
+                        "clientVersion": "1.0"
+                    },
+                    "threatInfo": {
+                        "threatTypes": [
+                            "MALWARE",
+                            "SOCIAL_ENGINEERING", 
+                            "UNWANTED_SOFTWARE",
+                            "POTENTIALLY_HARMFUL_APPLICATION"
+                        ],
+                        "platformTypes": ["ANY_PLATFORM"],
+                        "threatEntryTypes": ["URL"],
+                        "threatEntries": [{"url": url} for url in urls_batch]
+                    }
+                }
+                
+                response = requests.post(api_url, json=payload, timeout=10)
+                
+                if response.status_code == 200:
+                    result = response.json()
+                    blocked_urls = {}
+                    
+                    if 'matches' in result:
+                        for match in result['matches']:
+                            url = match['threat']['url']
+                            threat_type = match['threatType']
+                            blocked_urls[url] = f"Google Safe Browsing: {threat_type}"
+                    
+                    return blocked_urls
+                else:
+                    print(f"⚠️  Google Safe Browsing API error: {response.status_code}")
+                    return {}
+                    
+            except Exception as e:
+                print(f"⚠️  Google Safe Browsing check failed: {str(e)}")
+                return {}
 
         def extract_urls_from_file(file_path):
             """Extract URLs with and without protocols from any file"""
@@ -63,7 +112,6 @@ jobs:
                 urls = set()
                 for line in result.stdout.split('\n'):
                     if line.startswith('+') and not line.startswith('+++'):
-                        # Extract URLs from added lines using same comprehensive method
                         line_urls = extract_urls_from_content(line)
                         urls.update(line_urls)
                 return list(urls)
@@ -99,7 +147,6 @@ jobs:
         def find_all_urls():
             """Scan all files for URLs (monthly scan)"""
             all_urls = set()
-            # Scan all files except binary and dependency files
             for root, dirs, files in os.walk('.'):
                 # Skip common directories
                 dirs[:] = [d for d in dirs if d not in ['.git', 'node_modules', '__pycache__', '.venv']]
@@ -119,55 +166,52 @@ jobs:
         def check_url_content(url):
             """Check URL content for inappropriate material"""
             try:
-                # Normalize URL
                 if not url.startswith(('http://', 'https://')):
                     url = 'https://' + url
                 
-                # Try HEAD request first for efficiency
-                response = requests.head(url, timeout=10, allow_redirects=True, 
-                                       headers={'User-Agent': 'SecurityBot/1.0'})
+                response = requests.get(url, timeout=10, allow_redirects=True,
+                                     headers={'User-Agent': 'Mozilla/5.0 (compatible; SecurityBot/1.0)'})
                 
-                if response.status_code == 405:  # Method not allowed, try GET
-                    response = requests.get(url, timeout=10, stream=True,
-                                         headers={'User-Agent': 'SecurityBot/1.0'})
-                    content = response.text[:2000]  # Only check first 2KB
-                else:
-                    content = ""
+                content = response.text[:5000].lower()
+                full_url = response.url.lower()
                 
-                # Combine URL and content for analysis
-                full_content = f"{url} {content}".lower()
+                # Get page title
+                title = ""
+                title_match = re.search(r'<title[^>]*>([^<]+)</title>', content)
+                if title_match:
+                    title = title_match.group(1).lower()
                 
-                # Broad indicators (any occurrence)
-                broad_indicators = ['porn', 'xxx', 'sex', 'nude', 'erotic', 'nsfw', '18+', 'explicit', 'hardcore', 'webcam', 'escort', 'fetish']
+                full_analysis = f"{full_url} {title} {content}"
                 
-                # Contextual patterns (more specific)
-                adult_patterns = ['adult content', 'adult site', 'adult entertainment', 'adult videos', 'adult material', 'adult webcam']
+                # Enhanced keyword detection
+                inappropriate_keywords = [
+                    'porn', 'xxx', 'sex', 'nude', 'erotic', 'nsfw', '18+', 'explicit', 
+                    'hardcore', 'webcam', 'escort', 'fetish', 'adult content',
+                    'cam girl', 'live sex', 'free porn', 'hot girls', 'naked'
+                ]
                 
-                # Check broad indicators first
-                for indicator in broad_indicators:
-                    if indicator in full_content:
-                        # Skip if it's legitimate educational context
-                        if any(edu in full_content for edu in ['adult education', 'adult learning', 'continuing education']):
+                # Check for inappropriate content
+                for keyword in inappropriate_keywords:
+                    if keyword in full_analysis:
+                        # Skip educational contexts
+                        if any(edu in full_analysis for edu in [
+                            'adult education', 'adult learning', 'continuing education',
+                            'sex education', 'sexual health', 'medical', 'academic'
+                        ]):
                             continue
-                        return True, indicator
-                
-                # Check contextual patterns
-                for pattern in adult_patterns:
-                    if pattern in full_content:
-                        return True, pattern
+                        return True, f"inappropriate content: {keyword}"
                 
                 return False, None
+                
             except Exception as e:
                 print(f"    ⚠️  Could not check {url}: {str(e)}")
                 return False, None
 
         # Determine scan type based on trigger
         if os.getenv('GITHUB_EVENT_NAME') == 'schedule':
-            # Monthly full scan
             urls = find_all_urls()
             scan_type = "Monthly full repository scan"
         else:
-            # Commit-based scan
             urls = extract_urls_from_diff()
             scan_type = "Commit diff scan"
         
@@ -175,28 +219,44 @@ jobs:
             print(f"✅ {scan_type}: No URLs found")
             sys.exit(0)
         
-        print(f"🔍 {scan_type}: Found {len(urls)} URLs to check (with and without protocols)...")
-        blocked = []
+        print(f"🔍 {scan_type}: Found {len(urls)} URLs to check...")
         
-        # Use parallel processing for efficiency
-        with ThreadPoolExecutor(max_workers=10) as executor:
-            results = list(executor.map(check_url_content, urls))
-            
-            for i, (is_blocked, reason) in enumerate(results):
-                url = urls[i]
-                if is_blocked:
-                    blocked.append(f"{url} - {reason}")
-                    print(f"❌ BLOCKED: {url} - {reason}")
-                else:
-                    print(f"✅ Clean: {url}")
+        # Step 1: Google Safe Browsing check (fast, batch)
+        print("🛡️  Checking URLs with Google Safe Browsing API...")
+        google_blocked = check_urls_with_google_safe_browsing(urls)
         
-        if blocked:
-            if os.getenv('GITHUB_EVENT_NAME') == 'schedule':
-                print(f"\n🚨 SECURITY ALERT: {len(blocked)} compromised URLs found in repository!")
+        # Step 2: Content analysis for remaining URLs
+        remaining_urls = [url for url in urls if url not in google_blocked]
+        print(f"🔍 Analyzing content for {len(remaining_urls)} URLs...")
+        
+        content_blocked = {}
+        if remaining_urls:
+            with ThreadPoolExecutor(max_workers=10) as executor:
+                results = list(executor.map(check_url_content, remaining_urls))
+                
+                for i, (is_blocked, reason) in enumerate(results):
+                    url = remaining_urls[i]
+                    if is_blocked:
+                        content_blocked[url] = reason
+        
+        # Combine all blocked URLs
+        all_blocked = {**google_blocked, **content_blocked}
+        
+        # Report results
+        for url in urls:
+            if url in all_blocked:
+                print(f"❌ BLOCKED: {url} - {all_blocked[url]}")
             else:
-                print(f"\n❌ SECURITY CHECK FAILED: Inappropriate content detected!")
-            for url in blocked:
-                print(f"  - {url}")
+                print(f"✅ Clean: {url}")
+        
+        if all_blocked:
+            if os.getenv('GITHUB_EVENT_NAME') == 'schedule':
+                print(f"\n🚨 SECURITY ALERT: {len(all_blocked)} compromised URLs found!")
+            else:
+                print(f"\n❌ SECURITY CHECK FAILED: {len(all_blocked)} violations detected!")
+            
+            for url, reason in all_blocked.items():
+                print(f"  - {url} - {reason}")
             sys.exit(1)
         else:
             print(f"\n✅ All {len(urls)} URLs passed security check")
