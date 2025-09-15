@@ -32,7 +32,7 @@ jobs:
             try:
                 response = requests.get(url, headers={'User-Agent': 'SecurityBot/1.0'}, timeout=10, allow_redirects=True)
                 content = (response.url + response.text).lower()[:5000]
-                for indicator in ['porn', 'xxx', 'sex', 'adult', 'nude', 'erotic', 'nsfw', '18+']:
+                for indicator in ['porn', 'xxx', 'sex', 'adult', 'nude', 'erotic', 'nsfw', '18+', 'explicit', 'hardcore', 'webcam', 'escort', 'fetish']:
                     if indicator in content:
                         return True, indicator
                 return False, None
