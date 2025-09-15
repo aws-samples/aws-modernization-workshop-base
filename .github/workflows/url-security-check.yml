@@ -4,6 +4,10 @@ on:
   pull_request:
   push:
     branches: [ main, master ]
+  schedule:
+    # Run monthly on the 1st at 2 AM UTC
+    - cron: '0 2 1 * *'
+  workflow_dispatch: # Allow manual trigger
 
 jobs:
   url-security-scan:
@@ -16,7 +20,7 @@ jobs:
     - name: Check URLs for inappropriate content
       run: |
         python3 << 'EOF'
-        import re, subprocess, sys, requests
+        import re, subprocess, sys, requests, os
 
         def extract_urls_from_diff():
             try:
@@ -27,6 +31,18 @@ jobs:
                         urls.extend(re.findall(r'https?://[^\s<>"\'`]+', line))
                 return list(set(urls))
             except: return []
+
+        def find_all_urls():
+            urls = []
+            for root, dirs, files in os.walk('.'):
+                for file in files:
+                    if file.endswith(('.md', '.txt', '.html', '.yml', '.yaml')):
+                        try:
+                            with open(os.path.join(root, file), 'r') as f:
+                                content = f.read()
+                                urls.extend(re.findall(r'https?://[^\s<>"\'`]+', content))
+                        except: pass
+            return list(set(urls))
 
         def check_url_content(url):
             try:
@@ -52,26 +68,41 @@ jobs:
                 return False, None
             except: return False, None
 
-        urls = extract_urls_from_diff()
-        if not urls: 
-            print("✅ No URLs found in commit")
+        # Determine scan type based on trigger
+        if os.getenv('GITHUB_EVENT_NAME') == 'schedule':
+            # Monthly full scan
+            urls = find_all_urls()
+            scan_type = "Monthly full repository scan"
+        else:
+            # Commit-based scan
+            urls = extract_urls_from_diff()
+            scan_type = "Commit diff scan"
+        
+        if not urls:
+            print(f"✅ {scan_type}: No URLs found")
             sys.exit(0)
         
-        print(f"🔍 Checking {len(urls)} URLs...")
-        blocked = False
+        print(f"🔍 {scan_type}: Checking {len(urls)} URLs...")
+        blocked = []
+        
         for url in urls:
             print(f"Checking: {url}")
             is_adult, reason = check_url_content(url)
             if is_adult:
+                blocked.append(f"{url} - {reason}")
                 print(f"❌ BLOCKED: {url} - {reason}")
-                blocked = True
             else:
                 print(f"✅ Clean: {url}")
         
         if blocked:
-            print("\n❌ SECURITY CHECK FAILED: Inappropriate content detected!")
+            if os.getenv('GITHUB_EVENT_NAME') == 'schedule':
+                print(f"\n🚨 SECURITY ALERT: {len(blocked)} compromised URLs found in repository!")
+            else:
+                print(f"\n❌ SECURITY CHECK FAILED: Inappropriate content detected!")
+            for url in blocked:
+                print(f"  - {url}")
             sys.exit(1)
         else:
-            print("\n✅ All URLs passed content check")
+            print(f"\n✅ All URLs passed security check")
             sys.exit(0)
         EOF
