@@ -1,0 +1,63 @@
+name: URL Security Check
+
+on:
+  pull_request:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  url-security-scan:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Check URLs for inappropriate content
+      run: |
+        python3 << 'EOF'
+        import re, subprocess, sys, requests
+
+        def extract_urls_from_diff():
+            try:
+                result = subprocess.run(['git', 'diff', 'HEAD~1', 'HEAD'], capture_output=True, text=True)
+                urls = []
+                for line in result.stdout.split('\n'):
+                    if line.startswith('+') and not line.startswith('+++'):
+                        urls.extend(re.findall(r'https?://[^\s<>"\'`]+', line))
+                return list(set(urls))
+            except: return []
+
+        def check_url_content(url):
+            try:
+                response = requests.get(url, headers={'User-Agent': 'SecurityBot/1.0'}, timeout=10, allow_redirects=True)
+                content = (response.url + response.text).lower()[:5000]
+                for indicator in ['porn', 'xxx', 'sex', 'adult', 'nude', 'erotic', 'nsfw', '18+']:
+                    if indicator in content:
+                        return True, indicator
+                return False, None
+            except: return False, None
+
+        urls = extract_urls_from_diff()
+        if not urls: 
+            print("✅ No URLs found in commit")
+            sys.exit(0)
+        
+        print(f"🔍 Checking {len(urls)} URLs...")
+        blocked = False
+        for url in urls:
+            print(f"Checking: {url}")
+            is_adult, reason = check_url_content(url)
+            if is_adult:
+                print(f"❌ BLOCKED: {url} - {reason}")
+                blocked = True
+            else:
+                print(f"✅ Clean: {url}")
+        
+        if blocked:
+            print("\n❌ SECURITY CHECK FAILED: Inappropriate content detected!")
+            sys.exit(1)
+        else:
+            print("\n✅ All URLs passed content check")
+            sys.exit(0)
+        EOF
