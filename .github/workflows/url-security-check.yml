@@ -106,3 +106,21 @@ jobs:
             print(f"\n✅ All URLs passed security check")
             sys.exit(0)
         EOF
+    
+    - name: Notify Slack on Security Failure
+      if: failure()
+      uses: 8398a7/action-slack@v3
+      with:
+        status: failure
+        channel: '#security-alerts'
+        text: |
+          🚨 *URL Security Alert* 🚨
+          Repository: ${{ github.repository }}
+          Branch: ${{ github.ref_name }}
+          Commit: ${{ github.sha }}
+          
+          Inappropriate URLs detected! Check the action logs for details.
+          
+          Action: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
