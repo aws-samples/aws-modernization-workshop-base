@@ -32,9 +32,23 @@ jobs:
             try:
                 response = requests.get(url, headers={'User-Agent': 'SecurityBot/1.0'}, timeout=10, allow_redirects=True)
                 content = (response.url + response.text).lower()[:5000]
-                for indicator in ['porn', 'xxx', 'sex', 'adult', 'nude', 'erotic', 'nsfw', '18+', 'explicit', 'hardcore', 'webcam', 'escort', 'fetish']:
+                
+                # Broad keywords (any occurrence)
+                broad_indicators = ['porn', 'xxx', 'sex', 'nude', 'erotic', 'nsfw', '18+', 'explicit', 'hardcore', 'webcam', 'escort', 'fetish']
+                
+                # Contextual adult patterns (more specific)
+                adult_patterns = ['adult content', 'adult site', 'adult entertainment', 'adult videos', 'adult material', 'adult webcam']
+                
+                # Check broad indicators
+                for indicator in broad_indicators:
                     if indicator in content:
                         return True, indicator
+                
+                # Check contextual adult patterns
+                for pattern in adult_patterns:
+                    if pattern in content:
+                        return True, pattern
+                        
                 return False, None
             except: return False, None
 
