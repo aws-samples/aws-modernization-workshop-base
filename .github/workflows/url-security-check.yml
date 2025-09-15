@@ -169,6 +169,26 @@ jobs:
                 if not url.startswith(('http://', 'https://')):
                     url = 'https://' + url
                 
+                # First check the URL itself for inappropriate keywords
+                url_lower = url.lower()
+                inappropriate_keywords = [
+                    'porn', 'xxx', 'sex', 'nude', 'erotic', 'nsfw', '18+', 'explicit', 
+                    'hardcore', 'webcam', 'escort', 'fetish', 'adult-content',
+                    'cam-girl', 'live-sex', 'free-porn', 'hot-girls', 'naked'
+                ]
+                
+                # Check URL for inappropriate keywords
+                for keyword in inappropriate_keywords:
+                    if keyword in url_lower:
+                        # Skip educational contexts in URL
+                        if any(edu in url_lower for edu in [
+                            'adult-education', 'adult-learning', 'continuing-education',
+                            'sex-education', 'sexual-health', 'medical', 'academic'
+                        ]):
+                            continue
+                        return True, f"inappropriate URL pattern: {keyword}"
+                
+                # Then check the actual content if URL is clean
                 response = requests.get(url, timeout=10, allow_redirects=True,
                                      headers={'User-Agent': 'Mozilla/5.0 (compatible; SecurityBot/1.0)'})
                 
@@ -183,14 +203,7 @@ jobs:
                 
                 full_analysis = f"{full_url} {title} {content}"
                 
-                # Enhanced keyword detection
-                inappropriate_keywords = [
-                    'porn', 'xxx', 'sex', 'nude', 'erotic', 'nsfw', '18+', 'explicit', 
-                    'hardcore', 'webcam', 'escort', 'fetish', 'adult content',
-                    'cam girl', 'live sex', 'free porn', 'hot girls', 'naked'
-                ]
-                
-                # Check for inappropriate content
+                # Check content for inappropriate material
                 for keyword in inappropriate_keywords:
                     if keyword in full_analysis:
                         # Skip educational contexts
