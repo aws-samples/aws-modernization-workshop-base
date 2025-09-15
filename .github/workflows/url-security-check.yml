@@ -112,7 +112,7 @@ jobs:
       uses: 8398a7/action-slack@v3
       with:
         status: failure
-        channel: '#security-alerts'
+        channel: '#apn-mod-workshop-security'
         text: |
           🚨 *URL Security Alert* 🚨
           Repository: ${{ github.repository }}
