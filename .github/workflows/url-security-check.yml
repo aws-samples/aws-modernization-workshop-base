@@ -284,15 +284,7 @@ jobs:
         git config --global user.email "security-bot@github.com"
         
         # Revert the latest commit
-        git revert HEAD --no-edit --message "🚨 SECURITY: Auto-revert commit containing inappropriate URLs
-
-        This commit was automatically reverted because it contained URLs with inappropriate content.
-        The security scan detected violations of content policy.
-        
-        Original commit: ${{ github.sha }}
-        Detected violations: See action logs for details
-        
-        Please remove the inappropriate URLs and recommit your changes."
+        git revert HEAD --no-edit --message "🚨 SECURITY: Auto-revert commit containing inappropriate URLs - Original commit: ${{ github.sha }}"
         
         # Push the revert commit
         git push origin ${{ github.ref_name }}
