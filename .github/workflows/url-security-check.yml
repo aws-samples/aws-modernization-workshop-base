@@ -302,8 +302,8 @@ jobs:
         git config --global user.name "Security Bot"
         git config --global user.email "security-bot@github.com"
         
-        # Revert the latest commit with a simple message
-        git revert HEAD --no-edit -m "Security: Auto-revert inappropriate content"
+        # Revert the latest commit
+        git revert HEAD --no-edit
         
         # Push the revert commit
         git push origin ${{ github.ref_name }}
