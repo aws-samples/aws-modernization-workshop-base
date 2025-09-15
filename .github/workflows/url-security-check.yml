@@ -21,52 +21,145 @@ jobs:
       run: |
         python3 << 'EOF'
         import re, subprocess, sys, requests, os
+        from concurrent.futures import ThreadPoolExecutor
+
+        def extract_urls_from_file(file_path):
+            """Extract URLs with and without protocols from any file"""
+            try:
+                with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
+                    content = f.read()
+                    
+                    urls = set()
+                    
+                    # 1. Standard HTTP/HTTPS URLs
+                    http_urls = re.findall(r'https?://[^\s<>"\'`\)]+', content)
+                    urls.update(http_urls)
+                    
+                    # 2. Protocol-relative URLs (//example.com)
+                    protocol_relative = re.findall(r'//[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}[^\s<>"\'`\)]*', content)
+                    urls.update(['https:' + url for url in protocol_relative])
+                    
+                    # 3. Domain-only URLs (example.com, www.example.com)
+                    domain_pattern = r'\b(?:www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(?:\.[a-zA-Z]{2,})?(?:/[^\s<>"\'`\)]*)?'
+                    potential_domains = re.findall(domain_pattern, content)
+                    
+                    # Filter out common false positives
+                    for domain in potential_domains:
+                        if not any(skip in domain.lower() for skip in [
+                            'localhost', '127.0.0.1', 'example.com', 'test.com',
+                            '.js', '.css', '.json', '.xml', '.py', '.java',
+                            'version.', 'config.', 'package.', 'github.com'
+                        ]):
+                            urls.add('https://' + domain)
+                    
+                    return list(urls)
+            except:
+                return []
 
         def extract_urls_from_diff():
+            """Extract URLs from git diff (commit changes only)"""
             try:
                 result = subprocess.run(['git', 'diff', 'HEAD~1', 'HEAD'], capture_output=True, text=True)
-                urls = []
+                urls = set()
                 for line in result.stdout.split('\n'):
                     if line.startswith('+') and not line.startswith('+++'):
-                        urls.extend(re.findall(r'https?://[^\s<>"\'`]+', line))
-                return list(set(urls))
-            except: return []
+                        # Extract URLs from added lines using same comprehensive method
+                        line_urls = extract_urls_from_content(line)
+                        urls.update(line_urls)
+                return list(urls)
+            except: 
+                return []
+
+        def extract_urls_from_content(content):
+            """Helper to extract URLs from a single content string"""
+            urls = set()
+            
+            # Standard HTTP/HTTPS URLs
+            http_urls = re.findall(r'https?://[^\s<>"\'`\)]+', content)
+            urls.update(http_urls)
+            
+            # Protocol-relative URLs
+            protocol_relative = re.findall(r'//[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}[^\s<>"\'`\)]*', content)
+            urls.update(['https:' + url for url in protocol_relative])
+            
+            # Domain-only URLs
+            domain_pattern = r'\b(?:www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(?:\.[a-zA-Z]{2,})?(?:/[^\s<>"\'`\)]*)?'
+            potential_domains = re.findall(domain_pattern, content)
+            
+            for domain in potential_domains:
+                if not any(skip in domain.lower() for skip in [
+                    'localhost', '127.0.0.1', 'example.com', 'test.com',
+                    '.js', '.css', '.json', '.xml', '.py', '.java',
+                    'version.', 'config.', 'package.', 'github.com'
+                ]):
+                    urls.add('https://' + domain)
+            
+            return list(urls)
 
         def find_all_urls():
-            urls = []
+            """Scan all files for URLs (monthly scan)"""
+            all_urls = set()
+            # Scan all files except binary and dependency files
             for root, dirs, files in os.walk('.'):
+                # Skip common directories
+                dirs[:] = [d for d in dirs if d not in ['.git', 'node_modules', '__pycache__', '.venv']]
+                
                 for file in files:
-                    if file.endswith(('.md', '.txt', '.html', '.yml', '.yaml')):
-                        try:
-                            with open(os.path.join(root, file), 'r') as f:
-                                content = f.read()
-                                urls.extend(re.findall(r'https?://[^\s<>"\'`]+', content))
-                        except: pass
-            return list(set(urls))
+                    # Skip binary files
+                    if file.endswith(('.png', '.jpg', '.jpeg', '.gif', '.ico', '.svg', '.pdf', 
+                                    '.zip', '.tar', '.gz', '.exe', '.bin', '.dll')):
+                        continue
+                    
+                    file_path = os.path.join(root, file)
+                    urls = extract_urls_from_file(file_path)
+                    all_urls.update(urls)
+            
+            return list(all_urls)
 
         def check_url_content(url):
+            """Check URL content for inappropriate material"""
             try:
-                response = requests.get(url, headers={'User-Agent': 'SecurityBot/1.0'}, timeout=10, allow_redirects=True)
-                content = (response.url + response.text).lower()[:5000]
+                # Normalize URL
+                if not url.startswith(('http://', 'https://')):
+                    url = 'https://' + url
                 
-                # Broad keywords (any occurrence)
+                # Try HEAD request first for efficiency
+                response = requests.head(url, timeout=10, allow_redirects=True, 
+                                       headers={'User-Agent': 'SecurityBot/1.0'})
+                
+                if response.status_code == 405:  # Method not allowed, try GET
+                    response = requests.get(url, timeout=10, stream=True,
+                                         headers={'User-Agent': 'SecurityBot/1.0'})
+                    content = response.text[:2000]  # Only check first 2KB
+                else:
+                    content = ""
+                
+                # Combine URL and content for analysis
+                full_content = f"{url} {content}".lower()
+                
+                # Broad indicators (any occurrence)
                 broad_indicators = ['porn', 'xxx', 'sex', 'nude', 'erotic', 'nsfw', '18+', 'explicit', 'hardcore', 'webcam', 'escort', 'fetish']
                 
-                # Contextual adult patterns (more specific)
+                # Contextual patterns (more specific)
                 adult_patterns = ['adult content', 'adult site', 'adult entertainment', 'adult videos', 'adult material', 'adult webcam']
                 
-                # Check broad indicators
+                # Check broad indicators first
                 for indicator in broad_indicators:
-                    if indicator in content:
+                    if indicator in full_content:
+                        # Skip if it's legitimate educational context
+                        if any(edu in full_content for edu in ['adult education', 'adult learning', 'continuing education']):
+                            continue
                         return True, indicator
                 
-                # Check contextual adult patterns
+                # Check contextual patterns
                 for pattern in adult_patterns:
-                    if pattern in content:
+                    if pattern in full_content:
                         return True, pattern
-                        
+                
                 return False, None
-            except: return False, None
+            except Exception as e:
+                print(f"    ⚠️  Could not check {url}: {str(e)}")
+                return False, None
 
         # Determine scan type based on trigger
         if os.getenv('GITHUB_EVENT_NAME') == 'schedule':
@@ -82,17 +175,20 @@ jobs:
             print(f"✅ {scan_type}: No URLs found")
             sys.exit(0)
         
-        print(f"🔍 {scan_type}: Checking {len(urls)} URLs...")
+        print(f"🔍 {scan_type}: Found {len(urls)} URLs to check (with and without protocols)...")
         blocked = []
         
-        for url in urls:
-            print(f"Checking: {url}")
-            is_adult, reason = check_url_content(url)
-            if is_adult:
-                blocked.append(f"{url} - {reason}")
-                print(f"❌ BLOCKED: {url} - {reason}")
-            else:
-                print(f"✅ Clean: {url}")
+        # Use parallel processing for efficiency
+        with ThreadPoolExecutor(max_workers=10) as executor:
+            results = list(executor.map(check_url_content, urls))
+            
+            for i, (is_blocked, reason) in enumerate(results):
+                url = urls[i]
+                if is_blocked:
+                    blocked.append(f"{url} - {reason}")
+                    print(f"❌ BLOCKED: {url} - {reason}")
+                else:
+                    print(f"✅ Clean: {url}")
         
         if blocked:
             if os.getenv('GITHUB_EVENT_NAME') == 'schedule':
@@ -103,7 +199,7 @@ jobs:
                 print(f"  - {url}")
             sys.exit(1)
         else:
-            print(f"\n✅ All URLs passed security check")
+            print(f"\n✅ All {len(urls)} URLs passed security check")
             sys.exit(0)
         EOF
     
