@@ -11,23 +11,23 @@ Parameters:
   ProjectName:
     Type: String
     Description: Project Name
-    Default: xxxxxx
+    Default: HOSTNAME_PLACEHOLDER
   WebsiteBucket:
     Type: String
     Description: Website S3 bucket name
-    Default: xxxxxx.awsworkshop.io
+    Default: HOSTNAME_PLACEHOLDER.awsworkshop.io
   CloudFrontDistroId:
     Type: String
     Description: CloudFront distribution ID
-    Default: XXX
+    Default: CLOUDFRONT_ID_PLACEHOLDER
   GitHubRepo:
     Type: String
     Description: GitHub repository name
-    Default: aws-modernization-with-xXx
+    Default: aws-modernization-with-HOSTNAME_PLACEHOLDER
   FullRepoURL:
     Type: String
     Description: The full URL to the repo
-    Default: https://github.com/aws-samples/sample-aws-modernization-with-xXx.git
+    Default: https://github.com/aws-samples/sample-aws-modernization-with-HOSTNAME_PLACEHOLDER.git
   GitHubOwner:
     Type: String
     Description: GitHub owner name
