@@ -11,7 +11,7 @@ Parameters:
     Type: String
     Default: awsworkshop.io
     Description: The DNS name of an existing Amazon Route 53 hosted zone 
-    AllowedPattern: "^[a-z0-9-.]{1,63}$"
+    AllowedPattern: "^[a-z0-9-]{1,25}$"
     ConstraintDescription: must be a valid DNS zone name.
   OriginAccessID:
     Type: String
