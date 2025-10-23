@@ -8,7 +8,7 @@ phases:
         MAX_RETRIES=3
         for i in $(seq 1 $MAX_RETRIES); do
           echo "Attempt $i to download Hugo..."
-          curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep "download_url.*Linux-64bit.tar.gz" | grep -v "extended" | cut -d '"' -f 4 | wget -qi -
+          curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep "browser_download_url.*Linux-64bit.tar.gz" | grep -v "extended" | cut -d '"' -f 4 | wget -qi -
           HUGO_TAR="$(find . -name "*Linux-64bit.tar.gz")"
           if [ ! -z "$HUGO_TAR" ]; then
             echo "Hugo downloaded successfully"
